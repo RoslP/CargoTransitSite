@@ -19,7 +19,7 @@
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
     <!--    подключение стрилей-->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!--    подключение шрифтов от google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,17 +34,17 @@
         <div class="row">
             <!--сетка в bootstrap делится на 12 колонок, col-4 означает, что данный блок будет занимать 1/3 всей сетки блока row-->
             <div class="col-4">
-                <h1><a href="index.html">TransitCompany</a></h1>
+                <h1><a href="index.php">TransitCompany</a></h1>
             </div>
             <nav class="col-8">
                 <!--                использование иконок в i из font awesome-->
                 <ul>
-                    <li><a href="index.html"><i class="fa-solid fa-house"></i>Главная</a></li>
+                    <li><a href="index.php"><i class="fa-solid fa-house"></i>Главная</a></li>
                     <li><a href="#"><i class="fa-solid fa-truck"></i>Заказы</a></li>
-                    <li><a href="#"><i class="fa-solid fa-circle-user"></i>Личный кабинет</a>
+                    <li><i class="fa-solid fa-circle-user"></i>Личный кабинет</a>
                         <ul id="LK">
-                            <li><a href="#">Войти</a></li>
-                            <li><a href="reg.html">Зарегистрироваться</a></li>
+                            <li><a href="authenticate.php">Войти</a></li>
+                            <li><a href="reg.php">Зарегистрироваться</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -53,107 +53,28 @@
     </div>
 </header>
 
-<!--Carousel Начало-->
+<!--Main Block-->
 <div class="container">
-    <div>
-        <h2 class="slider-title">Добро пожаловать</h2>
-    </div>
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-slide="next">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="5000">
-                <img src="images/1.jpeg" class="d-block w-100" alt="..." height="500">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Перевозка грузов по морю</h5>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="5000">
-                <img src="images/2.jpg" class="d-block w-100" alt="..." height="500">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Дешевое хранение</h5>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="5000">
-                <img src="images/3.jpg" class="d-block w-100" alt="..." height="500">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Большой автопарк</h5>
-                </div>
-            </div>
+    <form class="row registration-form  justify-content-center justify-content-md-center"  method="post" action="reg.php">
+        <h4>Авторизация</h4>
+        <div class="col-12 col-md-4">
+            <label for="validationLoginAuth" class="form-label">Логин</label>
+            <input type="text" class="form-control" id="validationLoginAuth" placeholder="Введите логин" required>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+        <div class="w-100"></div>
+        <div class="col-12  col-md-4">
+            <label for="validationPasswordAuth" class="form-label">Пароль</label>
+            <input type="text" class="form-control" id="validationPasswordAuth" placeholder="Введите пароль"
+                   required>
+        </div>
+        <div class="w-100"></div>
+        <div  id="AuthBnt" class=" col-12 col-md-4">
+            <button class="btn btn-primary col-md-6" type="button">Войти</button>
+            <a href="reg.php">Зарегистрироваться</a>
+        </div>
+    </form>
 </div>
-<!--Carousel Конец-->
 
-<!--блок Main-->
-<div class="container">
-    <div class="content row">
-        <!--main content-->
-        <div class="main-content col-md-9">
-            <h2>Новости</h2>
-            <div class="post row">
-                <div class="img col-4 col-md-4">
-                    <img src="images/posts_text.jpg" alt="" class="img-thumbnail border border-5">
-                </div>
-                <div class="post-text col-8 col-mb-8 border border-5">
-                    <h2>
-                        <a href="single.html">Важность разработки сайтов</a>
-                    </h2>
-                    <i class="far fa-user"> Рослый П.М.</i>
-                    <i class="far fa-calendar"> Апрель 24</i>
-                    <p class="preview-text">
-                        Нужен индивидуальный подход к нестандартным задачам – вам недостаточно сервиса, который
-                        предоставляют другие компании.
-                    </p>
-                </div>
-            </div>
-
-<!--            <div class="post row">-->
-<!--                <div class="img col-4 col-md-4">-->
-<!--                    <img src="images/posts_text.jpg" alt="" class="img-thumbnail border border-5">-->
-<!--                </div>-->
-<!--                <div class="post-text col-8 col-mb-8">-->
-<!--                    <h2>-->
-<!--                        <a href="single.html">Название статьи</a>-->
-<!--                    </h2>-->
-<!--                    <i class="far fa-user">Имя автора</i>-->
-<!--                    <i class="far fa-calendar">Апрель 24</i>-->
-<!--                    <p class="preview-text">-->
-<!--                        Нужен индивидуальный подход к нестандартным задачам – вам недостаточно сервиса, который-->
-<!--                        предоставляют другие компании.-->
-<!--                    </p>-->
-<!--                </div>-->
-<!--            </div>-->
-
-        </div>
-
-
-        <!--sidebar-->
-        <div class="sidebar col-md-3">
-            <div class="section search">
-                <h3>Поиск</h3>
-                <form action="/" method="post">
-                    <input type="text" name="search-term" class="text-input" placeholder="Введите искомое слово">
-                </form>
-            </div>
-            <div class="section categories">
-                <h3>Категории</h3>
-                <ul>
-                    <li><a href="#">Частые вопросы</a></li>
-                    <li><a href="#">Количество заказов</a></li>
-                    <li><a href="#">Связь с нами</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!--блок Main конец-->
 
 <!--footer начало-->
 <footer class="footer container-fluid">

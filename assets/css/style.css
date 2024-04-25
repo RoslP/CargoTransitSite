@@ -78,7 +78,7 @@ header ul li {
     text-align: center;
 }
 
-header ul li a {
+header ul li {
     display: block;
     font-size: 1.2rem; /*Значение "1.2rem" в CSS означает, что размер шрифта будет равен 1.2 раза размеру шрифта по умолчанию для данного элемента.*/
 }
@@ -91,7 +91,6 @@ header ul li:hover {
 
 header ul li:hover a {
     color: rgb(204, 195, 176);
-
 }
 
 
@@ -216,7 +215,7 @@ footer {
 }
 
 .socials229 a i:hover {
-    color:  #053674;
+    color: #053674;
     border: 1px solid white;
     border-radius: 3px;
     transition: 0.3s;
@@ -231,24 +230,40 @@ footer {
 }
 
 /*single page of news-content*/
-.news-content{
+.news-content {
     background-color: #ccc3b0;
     margin: 20px 0px 20px 0px;
     border-radius: 20px;
 }
 
 /*registration form*/
-.registration-form{
+.registration-form {
     padding: 120px;
 }
 
-.registration-form div label{
-padding-top: 5px;
+.registration-form h4 {
+    text-align: center;
+    margin: 20px;
 }
-.form-check-reg{
-    margin-top:5px ;
+
+.registration-form div label {
+    padding-top: 5px;
 }
-.form-check-reg input{
-    display:inline-block ;
+
+.form-check-reg {
+    margin-top: 5px;
+}
+
+.form-check-reg input {
+    display: inline-block;
     padding: 0;
+}
+
+/**/
+#AuthBnt {
+    margin-top: 12px;
+}
+
+#AuthBnt a:hover {
+    text-decoration: underline;
 }

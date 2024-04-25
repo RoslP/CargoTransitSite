@@ -19,7 +19,7 @@
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
     <!--    подключение стрилей-->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <!--    подключение шрифтов от google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,17 +34,17 @@
         <div class="row">
             <!--сетка в bootstrap делится на 12 колонок, col-4 означает, что данный блок будет занимать 1/3 всей сетки блока row-->
             <div class="col-4">
-                <h1><a href="index.html">TransitCompany</a></h1>
+                <h1><a href="index.php">TransitCompany</a></h1>
             </div>
             <nav class="col-8">
                 <!--                использование иконок в i из font awesome-->
                 <ul>
-                    <li><a href="index.html"><i class="fa-solid fa-house"></i>Главная</a></li>
+                    <li><a href="index.php"><i class="fa-solid fa-house"></i>Главная</a></li>
                     <li><a href="#"><i class="fa-solid fa-truck"></i>Заказы</a></li>
-                    <li><a href="#"><i class="fa-solid fa-circle-user"></i>Личный кабинет</a>
+                    <li><i class="fa-solid fa-circle-user"></i>Личный кабинет</a>
                         <ul id="LK">
-                            <li><a href="#">Войти</a></li>
-                            <li><a href="reg.html">Зарегистрироваться</a></li>
+                            <li><a href="authenticate.php">Войти</a></li>
+                            <li><a href="reg.php">Зарегистрироваться</a></li>
                         </ul>
                     </li>
                 </ul>
