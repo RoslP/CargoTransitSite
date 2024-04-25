@@ -1,0 +1,254 @@
+/*         * :  означает глобально для всего проекта         */
+/*.play-regular {*/
+/*    font-family: "Play", sans-serif;*/
+/*    font-weight: 400;*/
+/*    font-style: normal;*/
+/*}*/
+
+/*.main-content .post-text i{*/
+/*    margin: 0px 10px 0px 0px; !*стороны идут по часовой стрелке*!*/
+/*}*/
+
+* {
+    font-family: "Play", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #4a4744;
+}
+
+body {
+    background-color: cornsilk;
+}
+
+a {
+    text-decoration: none; /*подчеркивание ссылок, в данном случае его нет(none)*/
+    color: inherit;
+}
+
+input {
+    display: block;
+    width: 100%; /*задает ширину равную 100% ширины родитеотского блока*/
+    padding: 4px 20px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+textarea {
+    width: 100%;
+}
+
+/*
+    HEADER
+*/
+header {
+    background-color: #ccc3b0;
+    height: 100px;
+}
+
+header * {
+    color: #4a4744;
+}
+
+header h1 {
+    margin: 22px;
+}
+
+
+header ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; /*задает маркер пунктов списка, none - пункты не видны*/
+    float: right; /*для того что бы выровнять элементы по правому краю нужно было во вложенном списке #LK поставить позицию absolute, иначе не работало*/
+}
+
+header ul li {
+    float: left;
+    padding: 30px;
+    height: 100px;
+    text-align: center;
+}
+
+header ul li a {
+    display: block;
+    font-size: 1.2rem; /*Значение "1.2rem" в CSS означает, что размер шрифта будет равен 1.2 раза размеру шрифта по умолчанию для данного элемента.*/
+}
+
+header ul li:hover {
+    height: 100px; /*устанавливаю выстоту такую как у header*/
+    background-color: rgb(87, 79, 68);
+    transition: 0.3s; /*время черз которе произойдет замена*/
+}
+
+header ul li:hover a {
+    color: rgb(204, 195, 176);
+
+}
+
+
+#LK {
+    position: absolute; /*убирает пробелы между блоками в данном случае*/
+    top: 100px;
+    width: 180px;
+    z-index: 10; /*позиция по z оси, определяет наложение элементов друг на друга*/
+    display: none;
+}
+
+#LK li {
+    text-align: left;
+    position: relative; /*устанавоивает позицию относительно исходной*/
+    width: 227px;
+    left: -30px;
+    height: 100px; /*устанавливаю выстоту такую как у header*/
+    background-color: rgb(87, 79, 68);
+}
+
+header ul li:hover #LK {
+    display: grid;
+}
+
+#LK li:hover a {
+    color: rgb(87, 79, 68);
+}
+
+#LK li:hover {
+    background-color: rgb(204, 195, 176);
+}
+
+/*SLIDER
+*/
+.slider-title {
+    padding: 20px;
+    text-align: center;
+    color: #000000;
+}
+
+.carousel-item {
+    justify-content: center;
+}
+
+.carousel-inner {
+    border-radius: 200px;
+    border-style: groove;
+}
+
+/*загаловки на слайдах*/
+.carousel-caption h5 {
+    font-size: 2rem;
+    background-image: linear-gradient(to right, transparent, rgba(69, 67, 63, 0.76), rgba(69, 67, 63, 0.76), transparent);
+    border-radius: 40px;
+    color: #e4e0e0;
+}
+
+/*новостная лента*/
+.main-content h2 {
+    margin: 20px 0px;
+}
+
+.main-content .post-text {
+    margin-bottom: 3em;
+    background-color: rgba(115, 110, 85, 0.2);
+    border-radius: 20px;
+    height: 180px;
+}
+
+.main-content .post-text h2 a:hover {
+    text-decoration: underline;
+
+}
+
+.main-content .post-text i {
+    margin: 0px 10px 0px 0px; /*стороны идут по часовой стрелке*/
+
+}
+
+/*Sidebar*/
+.categories ul li a:hover {
+    text-decoration: underline;
+}
+
+.sidebar {
+    margin-top: 60px;
+}
+
+.sidebar .section {
+    padding: 20px;
+    margin: 20px;
+    background-color: rgba(115, 110, 85, 0.2);
+    border-radius: 20px;
+}
+
+.categories ul li a:hover {
+    padding-left: 10px;
+    transition: all 0.3s;
+}
+
+/*footer*/
+footer {
+    background-color: #ccc3b0;
+    position: relative;
+}
+
+.footer-section {
+    margin-top: 20px;
+}
+
+.footer-bottom {
+    background-color: #af9f8f;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.socials229 a {
+    font-size: 40px;
+}
+
+.socials229 a i:hover {
+    color:  #053674;
+    border: 1px solid white;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+
+.links ul li:hover {
+    text-decoration: underline;
+    padding-left: 10px;
+    transition: 0.3s;
+    color: #053674;
+}
+
+/*single page of news-content*/
+.news-content{
+    background-color: #ccc3b0;
+    margin: 20px 0px 20px 0px;
+    border-radius: 20px;
+}
+
+/*registration form*/
+.registration-form{
+    padding: 120px;
+}
+
+.registration-form div label{
+padding-top: 5px;
+}
+.form-check-reg{
+    margin-top:5px ;
+}
+.form-check-reg input{
+    display:inline-block ;
+    padding: 0;
+}
