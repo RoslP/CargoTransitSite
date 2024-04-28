@@ -1,10 +1,4 @@
 <?php
-$driver = 'mysql';
-$db_host = 'localhost';
-$db_name = 'cargo_transit_db';
-$db_user = 'root';
-$db_password = 'mysql';
-$charset = 'utf8';
 
 //PDO::ATTR_ERRMODE  PDO - является классом. ATTR_ERRMODE - статическим полем класса
 //Символ :: используется для обращения к статическому свойству или методу класса без
@@ -15,9 +9,30 @@ $charset = 'utf8';
 //устанавливает режим обработки ошибок на исключения типа PDOException
 
 //Для доступа к статическому полю класса используется синтаксис ClassName::fieldName
-try {
-    $pdo = new PDO ('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_user, $db_password,
-        array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-} catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+     class DatabaseConnection {
+    private static $pdo;
+
+    static protected $dsnData = [
+        'host' => 'localhost',
+        'dbname' => 'cargo_transit_db',
+        'charset' => 'utf8',
+        'user' => 'root',
+        'passwd' => 'mysql',
+    ];
+    public static function getConnection()
+    {
+        if (self::$pdo === null) {
+            $dsn = "mysql:host=".self::$dsnData['host'].";dbname=".self::$dsnData['dbname'].";charset=".self::$dsnData['charset'];
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ];
+            try {
+                self::$pdo = new PDO($dsn, self::$dsnData['user'], self::$dsnData['passwd'], $options);
+            } catch (PDOException $e) {
+                die("Ошибка подключения: " . $e->getMessage());
+            }
+        }
+        return self::$pdo;
+    }
 }

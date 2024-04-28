@@ -1,4 +1,7 @@
-<?php require('app/include/partition.php')?>
+<?php
+require('app/include/partition.php');
+require('app/controllers/users.php');
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,34 +31,37 @@
 </head>
 <body>
 <!--добавляет контейнер на всю ширину страницы класс из bootstrap5-->
-<?php $header= new Partition(false,true);
+<?php $header = new Partition(false, true);
 $header->show();
 ?>
 <!--Main Block-->
 <div class="container">
-    <form class="row registration-form  justify-content-center justify-content-md-center"  method="post" action="reg.html">
+    <form class="row registration-form  justify-content-center justify-content-md-center" method="post"
+          action="reg.php">
         <h4>Форма регистрации</h4>
         <div class="col-12 col-md-4">
             <label for="validationName" class="form-label">Имя</label>
-            <input type="text" class="form-control" id="validationName" placeholder="Введите имя" required>
+            <input name="Name" type="text" class="form-control" id="validationName" placeholder="Введите имя" required>
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationSecondNameInput" class="form-label">Фамилия</label>
-            <input type="text" class="form-control" id="validationSecondNameInput" placeholder="Введите фамилию"
+            <input name="Second_name" type="text" class="form-control" id="validationSecondNameInput"
+                   placeholder="Введите фамилию"
                    required>
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationPatronymic" class="form-label">Отчество</label>
-            <input type="text" class="form-control" id="validationPatronymic" placeholder="Введите отчество" required>
+            <input name="Patronymic" type="text" class="form-control" id="validationPatronymic"
+                   placeholder="Введите отчество" required>
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationUsername" class="form-label">Логин</label>
             <div class="input-group">
                 <span class="input-group-text" id="validationUsername">@</span>
-                <input type="text" class="form-control" id="validationUsernameInput"
+                <input name="Login" type="text" class="form-control" id="validationUsernameInput"
                        aria-describedby="inputGroupPrepend2" placeholder="Введите логин" required>
             </div>
         </div>
@@ -64,40 +70,43 @@ $header->show();
             <label for="validationDefaultUsername" class="form-label">Пароль</label>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                <input type="text" class="form-control" id="validationDefaultUsername"
+                <input name="Password" type="text" class="form-control" id="validationDefaultUsername"
                        aria-describedby="inputGroupPrepend2" placeholder="Введите пароль" required>
             </div>
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationCompany" class="form-label">Компания</label>
-            <input type="text" class="form-control" id="validationCompany" placeholder="Введите название компании"
+            <input name="Company" type="text" class="form-control" id="validationCompany"
+                   placeholder="Введите название компании"
                    required>
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationAddress" class="form-label">Адрес</label>
-            <input type="text" class="form-control" id="validationAddress" placeholder="Введите свой адрес" required>
+            <input name="Address" type="text" class="form-control" id="validationAddress"
+                   placeholder="Введите свой адрес" required>
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationPhone" class="form-label">Телефон</label>
-            <input type="text" class="form-control" id="validationPhone" placeholder="Введите номер телефона" required>
+            <input name="Phone" type="text" class="form-control" id="validationPhone"
+                   placeholder="Введите номер телефона" required>
         </div>
         <div class="w-100"></div>
         <div class="row justify-content-center justify-content-md-center">
             <div class="form-check-reg form-check-inline col-12 col-md-4">
-                <input type="radio" class="form-check-input" id="validationFormCheck2" name="radio-stacked" required>
+                <input name="IsManagerOrCustomer" type="radio" class="form-check-input" id="validationFormCheck2" value="0" required>
                 <label class="form-check-label" for="validationFormCheck2">Заказчик</label>
             </div>
             <div class="w-100"></div>
             <div class="form-check-reg form-check-inline col-12 col-md-4">
-                <input type="radio" class="form-check-input" id="validationFormCheck3" name="radio-stacked" required>
+                <input name="IsManagerOrCustomer" type="radio" class="form-check-input" id="validationFormCheck3" value="1" required>
                 <label class="form-check-label" for="validationFormCheck3">Менеджер</label>
             </div>
         </div>
-        <div  class="col-12 col-md-4">
-        <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+        <div class="col-12 col-md-4">
+            <button name="button-reg" class="btn btn-primary" type="submit">Зарегистрироваться</button>
         </div>
     </form>
 </div>
