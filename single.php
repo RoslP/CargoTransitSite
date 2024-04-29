@@ -1,4 +1,6 @@
-<?php require('app/include/partition.php') ?>
+<?php
+include 'app/database/connect.php'
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,9 +30,7 @@
 </head>
 <body>
 <!--добавляет контейнер на всю ширину страницы класс из bootstrap5-->
-<?php $header = new Partition(false,true);
-$header->show();
-?>
+<?php require 'app/include/header.php'?>
 <!--блок Main-->
 <div class="container">
     <div class="content row ">
@@ -108,9 +108,7 @@ $header->show();
 <!--блок Main конец-->
 
 <!--footer начало-->
-<?php $footer = new Partition(true);
-$footer->show();
-?>
+<?php require 'app/include/footer.php'?>
 <!--footer конец-->
 
 </body>

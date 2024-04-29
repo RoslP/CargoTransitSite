@@ -8,7 +8,7 @@ class Partition
     public function __construct($footer = false, $header = false)
     {
         if ($header) {
-            $this->header = <<<HTML
+            $this->header = <<<'HTML'
 <header class="container-fluid">
     <!--добавляет обычный контейнер внутри контейнера на всю длину в виде блока div-->
     <div class="container">

@@ -1,6 +1,5 @@
 <?php
 require_once "connect.php";
-
 class Database
 {
     private $pdo;
@@ -17,7 +16,7 @@ class Database
         echo '</pre>';
     }
 
-    //Проверка выполнения запроса к бд
+    //Проверка выполнения запроса к бд    $this->dbErrorInfo($query);
     public function dbErrorInfo($query)
     {
         $errInfo = $query->errorInfo();
@@ -58,17 +57,17 @@ class Database
     }
 
 
-    public function selectOne($tableName, $id)
+    public function selectOne($tableName,$col,$id)
     {
         $allowedTables = ['cargo', 'stations', 'users'];
         if (!in_array($tableName, $allowedTables)) {
             die("Неверное имя таблицы");
         } else {
-            $sql = "SELECT * FROM $tableName WHERE id_users = $id";
+            $sql = "SELECT * FROM $tableName WHERE $col = '$id'";
             $query = $this->pdo->prepare($sql);
             $query->execute();
             $this->dbErrorInfo($query);
-            return $query->fetchAll();
+            return $query->fetch();
         }
     }
 
@@ -90,8 +89,7 @@ class Database
         $sql = " INSERT INTO $tableName ($coll) VALUES ($masks)";
         $query = $this->pdo->prepare($sql);
         //Для выполнения подготовленного запроса передаем параметры в виде ассоциативного массива в строку выполнения
-        $query->execute($data);
-        $this->dbErrorInfo($query);
+        $query->execute();
         //возвращает последний id, записанный в базу данных
         return $this->pdo->lastInsertId();
     }
@@ -129,23 +127,23 @@ class Database
 
 }
 
-$arrData = [
-    'is_manager' => '1',
-    'first_name' => 'Juliana',
-    'second_name' => 'SamS',
-    'patronymic' => 'SamF',
-    'address' => 'Oliaska',
-    'phone_number' => '6123006789',
-    'company' => 'BigCompany',
-    'login' => 'jill',
-    'password' => '123456'
+//$arrData = [
+//    'is_manager' => '1',
+//    'first_name' => 'Juliana',
+//    'second_name' => 'SamS',
+//    'patronymic' => 'SamF',
+//    'address' => 'Oliaska',
+//    'phone_number' => '6123006789',
+//    'company' => 'BigCompany',
+//    'login' => 'jill',
+//    'password' => '123456'
+//
+//];
 
-];
-
-$params = [
-    'is_manager' => 0,
-    'first_name' => 'ААА'
-];
+//$params = [
+//    'is_manager' => 0,
+//    'first_name' => 'ААА'
+//];
 
 //$database = new Database();
 //$database->selectFrom("users", $params);

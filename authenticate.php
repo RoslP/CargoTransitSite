@@ -1,4 +1,7 @@
-<?php require('app/include/partition.php') ?>
+<?php
+include 'app/database/connect.php';
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -28,9 +31,7 @@
 </head>
 <body>
 <!--добавляет контейнер на всю ширину страницы класс из bootstrap5-->
-<?php $header = new Partition(false,true);
-$header->show();
-?>
+<?php require 'app/include/header.php'?>
 <!--Main Block-->
 <div class="container">
     <form class="row registration-form  justify-content-center justify-content-md-center" method="post"
@@ -56,9 +57,7 @@ $header->show();
 
 
 <!--footer начало-->
-<?php $footer = new Partition(true);
-$footer->show();
-?>
+<?php require 'app/include/footer.php'?>
 <!--footer конец-->
 
 </body>

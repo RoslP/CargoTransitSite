@@ -1,4 +1,6 @@
-<?php require('app/include/partition.php'); ?>
+<?php
+include 'app/database/connect.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,9 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<?php $header = new Partition(false,true);
-$header->show();
-?>
+<?php require 'app/include/header.php'?>
 <!--Carousel Начало-->
 <div class="container">
     <div>
@@ -132,9 +132,7 @@ $header->show();
 </div>
 <!--блок Main конец-->
 <!--footer начало-->
-<?php $footer = new Partition(true);
-$footer ->show();
-?>
+<?php require 'app/include/footer.php'?>
 <!--footer конец-->
 
 </body>

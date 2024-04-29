@@ -1,6 +1,5 @@
 <?php
-require('app/include/partition.php');
-require('app/controllers/users.php');
+include 'app/calls/calls.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -31,30 +30,37 @@ require('app/controllers/users.php');
 </head>
 <body>
 <!--добавляет контейнер на всю ширину страницы класс из bootstrap5-->
-<?php $header = new Partition(false, true);
-$header->show();
-?>
+<?php require 'app/include/header.php'?>
 <!--Main Block-->
 <div class="container">
     <form class="row registration-form  justify-content-center justify-content-md-center" method="post"
-          action="reg.php">
+          action='reg.php'>
         <h4>Форма регистрации</h4>
+        <div class="col-12 col-md-4 errString"><?php
+            echo DataProcessing::$ErrIfStingEmpty;
+            ?>
+        </div>
+        <div class="w-100"></div>
         <div class="col-12 col-md-4">
             <label for="validationName" class="form-label">Имя</label>
-            <input name="Name" type="text" class="form-control" id="validationName" placeholder="Введите имя" required>
+            <input name="Name" type="text" class="form-control" id="validationName" placeholder="Введите имя"
+                   value="<?php
+                   echo DataProcessing::$arrOfPostsend['name'];
+                   ?>">
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationSecondNameInput" class="form-label">Фамилия</label>
             <input name="Second_name" type="text" class="form-control" id="validationSecondNameInput"
-                   placeholder="Введите фамилию"
-                   required>
+                   placeholder="Введите фамилию" value="<?php echo DataProcessing::$arrOfPostsend['second_name']; ?>">
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationPatronymic" class="form-label">Отчество</label>
             <input name="Patronymic" type="text" class="form-control" id="validationPatronymic"
-                   placeholder="Введите отчество" required>
+                   placeholder="Введите отчество" value="<?php
+            echo DataProcessing::$arrOfPostsend['patronymic'];
+            ?>">
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
@@ -62,7 +68,7 @@ $header->show();
             <div class="input-group">
                 <span class="input-group-text" id="validationUsername">@</span>
                 <input name="Login" type="text" class="form-control" id="validationUsernameInput"
-                       aria-describedby="inputGroupPrepend2" placeholder="Введите логин" required>
+                       aria-describedby="inputGroupPrepend2" placeholder="Введите логин">
             </div>
         </div>
         <div class="w-100"></div>
@@ -71,50 +77,53 @@ $header->show();
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
                 <input name="Password" type="text" class="form-control" id="validationDefaultUsername"
-                       aria-describedby="inputGroupPrepend2" placeholder="Введите пароль" required>
+                       aria-describedby="inputGroupPrepend2" placeholder="Введите пароль">
             </div>
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationCompany" class="form-label">Компания</label>
             <input name="Company" type="text" class="form-control" id="validationCompany"
-                   placeholder="Введите название компании"
-                   required>
+                   placeholder="Введите название компании" value="<?php
+            echo DataProcessing::$arrOfPostsend['company']; ?>">
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationAddress" class="form-label">Адрес</label>
             <input name="Address" type="text" class="form-control" id="validationAddress"
-                   placeholder="Введите свой адрес" required>
+                   placeholder="Введите свой адрес" value="<?php
+            echo DataProcessing::$arrOfPostsend['address']; ?>">
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
             <label for="validationPhone" class="form-label">Телефон</label>
             <input name="Phone" type="text" class="form-control" id="validationPhone"
-                   placeholder="Введите номер телефона" required>
+                   placeholder="Введите номер телефона" value="<?php
+            echo DataProcessing::$arrOfPostsend['phone']; ?>">
         </div>
         <div class="w-100"></div>
         <div class="row justify-content-center justify-content-md-center">
             <div class="form-check-reg form-check-inline col-12 col-md-4">
-                <input name="IsManagerOrCustomer" type="radio" class="form-check-input" id="validationFormCheck2" value="0" required>
                 <label class="form-check-label" for="validationFormCheck2">Заказчик</label>
+                <input name="IsManagerOrCustomer" type="radio" class="form-check-input" id="validationFormCheck2"
+                       value="0" checked>
             </div>
             <div class="w-100"></div>
             <div class="form-check-reg form-check-inline col-12 col-md-4">
-                <input name="IsManagerOrCustomer" type="radio" class="form-check-input" id="validationFormCheck3" value="1" required>
                 <label class="form-check-label" for="validationFormCheck3">Менеджер</label>
+                <input name="IsManagerOrCustomer" type="radio" class="form-check-input" id="validationFormCheck3"
+                       value="1">
             </div>
         </div>
         <div class="col-12 col-md-4">
-            <button name="button-reg" class="btn btn-primary" type="submit">Зарегистрироваться</button>
+            <button name="button-reg" class="btn btn-primary" type="submit">Зарегистрироваться
+            </button>
         </div>
     </form>
 </div>
 
 <!--footer начало-->
-<?php $header = new Partition(true);
-$header->show();
-?>
+<?php require 'app/include/footer.php'?>
 <!--footer конец-->
 
 </body>
