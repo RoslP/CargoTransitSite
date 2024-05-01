@@ -1,5 +1,5 @@
 <?php
-include 'app/database/connect.php';
+session_start();
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,14 +22,14 @@ include 'app/database/connect.php';
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
     <!--    подключение стрилей-->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="src/assets/css/style.css">
     <!--    подключение шрифтов от google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<?php require 'app/include/header.php'?>
+<?php require __DIR__.'/src/App/Include/Header.php' ?>
 <!--Carousel Начало-->
 <div class="container">
     <div>
@@ -38,19 +38,19 @@ include 'app/database/connect.php';
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-slide="next">
         <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="5000">
-                <img src="assets/images/1.jpeg" class="d-block w-100" alt="..." height="500">
+                <img src="src/assets/images/1.jpeg" class="d-block w-100" alt="..." height="500">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Перевозка грузов по морю</h5>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="5000">
-                <img src="assets/images/2.jpg" class="d-block w-100" alt="..." height="500">
+                <img src="src/assets/images/2.jpg" class="d-block w-100" alt="..." height="500">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Дешевое хранение</h5>
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="5000">
-                <img src="assets/images/3.jpg" class="d-block w-100" alt="..." height="500">
+                <img src="src/assets/images/3.jpg" class="d-block w-100" alt="..." height="500">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Большой автопарк</h5>
                 </div>
@@ -76,11 +76,11 @@ include 'app/database/connect.php';
             <h2>Новости</h2>
             <div class="post row">
                 <div class="img col-4 col-md-4">
-                    <img src="assets/images/posts_text.jpg" alt="" class="img-thumbnail border border-5">
+                    <img src="src/assets/images/posts_text.jpg" alt="" class="img-thumbnail border border-5">
                 </div>
                 <div class="post-text col-8 col-mb-8 border border-5">
                     <h2>
-                        <a href="single.php">Важность разработки сайтов</a>
+                        <a href="src/Pages/Single.php">Важность разработки сайтов</a>
                     </h2>
                     <i class="far fa-user"> Рослый П.М.</i>
                     <i class="far fa-calendar"> Апрель 24</i>
@@ -91,26 +91,7 @@ include 'app/database/connect.php';
                 </div>
             </div>
 
-            <!--            <div class="post row">-->
-            <!--                <div class="img col-4 col-md-4">-->
-            <!--                    <img src="images/posts_text.jpg" alt="" class="img-thumbnail border border-5">-->
-            <!--                </div>-->
-            <!--                <div class="post-text col-8 col-mb-8">-->
-            <!--                    <h2>-->
-            <!--                        <a href="single.html">Название статьи</a>-->
-            <!--                    </h2>-->
-            <!--                    <i class="far fa-user">Имя автора</i>-->
-            <!--                    <i class="far fa-calendar">Апрель 24</i>-->
-            <!--                    <p class="preview-text">-->
-            <!--                        Нужен индивидуальный подход к нестандартным задачам – вам недостаточно сервиса, который-->
-            <!--                        предоставляют другие компании.-->
-            <!--                    </p>-->
-            <!--                </div>-->
-            <!--            </div>-->
-
         </div>
-
-
         <!--sidebar-->
         <div class="sidebar col-md-3">
             <div class="section search">
@@ -132,7 +113,7 @@ include 'app/database/connect.php';
 </div>
 <!--блок Main конец-->
 <!--footer начало-->
-<?php require 'app/include/footer.php'?>
+<?php require __DIR__.'/src/App/Include/Footer.php' ?>
 <!--footer конец-->
 
 </body>

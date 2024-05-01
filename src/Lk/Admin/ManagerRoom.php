@@ -1,7 +1,7 @@
 <?php
-include 'app/database/connect.php';
+require_once '../../App/Database/DataProcessing.php';
+require_once '../../App/Call/Call.php';
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,42 +22,40 @@ include 'app/database/connect.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--    подключение стрилей-->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/admh.css">
     <!--    подключение шрифтов от google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<!--добавляет контейнер на всю ширину страницы класс из bootstrap5-->
-<?php require 'app/include/header.php'?>
-<!--Main Block-->
+<?php require 'AdminHeader.php' ?>
+<!--блок Main-->
 <div class="container">
-    <form class="row registration-form  justify-content-center justify-content-md-center" method="post"
-          action="reg.php">
-        <h4>Авторизация</h4>
-        <div class="col-12 col-md-4">
-            <label for="validationLoginAuth" class="form-label">Логин</label>
-            <input type="text" class="form-control" id="validationLoginAuth" placeholder="Введите логин" required>
+    <div class="row">
+        <div class="sidebar col-4">
+            <ul>
+                <li>
+                    <a href="#">Статусы заказов</a>
+                </li>
+                <li>
+                    <a href="#">Пользователи</a>
+                </li>
+            </ul>
         </div>
-        <div class="w-100"></div>
-        <div class="col-12  col-md-4">
-            <label for="validationPasswordAuth" class="form-label">Пароль</label>
-            <input type="text" class="form-control" id="validationPasswordAuth" placeholder="Введите пароль"
-                   required>
-        </div>
-        <div class="w-100"></div>
-        <div id="AuthBnt" class=" col-12 col-md-4">
-            <button class="btn btn-primary col-md-6" type="button">Войти</button>
-            <a href="reg.php">Зарегистрироваться</a>
-        </div>
-    </form>
+        <form method="post" action="ManagerRoom.php">
+            <div class="row col-2">
+                <button name="post-data-in-lk" class="btn btn-primary " type="submit" value="1">Получить данные</button>
+                <?php echo 1 ?>
+            </div>
+        </form>
+    </div>
 </div>
-
-
+<!--блок Main конец-->
 <!--footer начало-->
-<?php require 'app/include/footer.php'?>
+<?php require '../../App/Include/Footer.php' ?>
 <!--footer конец-->
 
 </body>

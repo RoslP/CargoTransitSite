@@ -1,5 +1,6 @@
 <?php
-include 'app/calls/calls.php';
+require '../App/Database/DataProcessing.php';
+require '../App/Call/Call.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,7 +23,7 @@ include 'app/calls/calls.php';
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
     <!--    подключение стрилей-->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <!--    подключение шрифтов от google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,11 +31,11 @@ include 'app/calls/calls.php';
 </head>
 <body>
 <!--добавляет контейнер на всю ширину страницы класс из bootstrap5-->
-<?php require 'app/include/header.php'?>
+<?php require '../App/Include/Header.php' ?>
 <!--Main Block-->
 <div class="container">
     <form class="row registration-form  justify-content-center justify-content-md-center" method="post"
-          action='reg.php'>
+          action='Reg.php'>
         <h4>Форма регистрации</h4>
         <div class="col-12 col-md-4 errString"><?php
             echo DataProcessing::$ErrIfStingEmpty;
@@ -123,7 +124,7 @@ include 'app/calls/calls.php';
 </div>
 
 <!--footer начало-->
-<?php require 'app/include/footer.php'?>
+<?php require '../App/Include/Footer.php' ?>
 <!--footer конец-->
 
 </body>

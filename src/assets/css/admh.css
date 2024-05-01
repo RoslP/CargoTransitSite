@@ -1,0 +1,153 @@
+* {
+    font-family: "Play", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #4a4744;
+}
+
+body {
+    background-color: cornsilk;
+}
+
+a {
+    text-decoration: none; /*подчеркивание ссылок, в данном случае его нет(none)*/
+    color: inherit;
+}
+
+input {
+    display: block;
+    width: 100%; /*задает ширину равную 100% ширины родитеотского блока*/
+    padding: 4px 20px;
+    border: 1px solid #000000;
+    border-radius: 4px;
+}
+
+textarea {
+    width: 100%;
+}
+
+/*
+    HEADER
+*/
+header {
+    background-color: #ccc3b0;
+    height: 100px;
+}
+
+header * {
+    color: #4a4744;
+}
+
+header h1 {
+    margin: 22px;
+}
+
+
+header ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none; /*задает маркер пунктов списка, none - пункты не видны*/
+    float: right; /*для того что бы выровнять элементы по правому краю нужно было во вложенном списке #LK поставить позицию absolute, иначе не работало*/
+}
+
+header ul li {
+    float: left;
+    padding: 30px;
+    height: 100px;
+    text-align: center;
+}
+
+header ul li {
+    display: block;
+    font-size: 1.2rem; /*Значение "1.2rem" в CSS означает, что размер шрифта будет равен 1.2 раза размеру шрифта по умолчанию для данного элемента.*/
+}
+
+header ul li:hover {
+    height: 100px; /*устанавливаю выстоту такую как у header*/
+    background-color: rgb(87, 79, 68);
+    transition: 0.3s; /*время черз которе произойдет замена*/
+}
+
+header ul li:hover a {
+    color: rgb(204, 195, 176);
+}
+
+
+#LK {
+    position: absolute; /*убирает пробелы между блоками в данном случае*/
+    top: 100px;
+    width: 180px;
+    z-index: 10; /*позиция по z оси, определяет наложение элементов друг на друга*/
+    display: none;
+}
+
+#LK li {
+    text-align: left;
+    position: relative; /*устанавоивает позицию относительно исходной*/
+    width: 227px;
+    left: -30px;
+    height: 100px; /*устанавливаю выстоту такую как у header*/
+    background-color: rgb(87, 79, 68);
+}
+
+header ul li:hover #LK {
+    display: grid;
+}
+
+#LK li:hover a {
+    color: rgb(87, 79, 68);
+}
+
+#LK li:hover {
+    background-color: rgb(204, 195, 176);
+}
+/*конец header*/
+/*footer*/
+/*footer*/
+footer {
+    background-color: #ccc3b0;
+    position: relative;
+}
+
+.footer-section {
+    margin-top: 20px;
+}
+
+.footer-bottom {
+    background-color: #af9f8f;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.socials229 a {
+    font-size: 40px;
+}
+
+.socials229 a i:hover {
+    color: #053674;
+    border: 1px solid white;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+
+.links ul li:hover {
+    text-decoration: underline;
+    padding-left: 10px;
+    transition: 0.3s;
+    color: #053674;
+}
+/*конец footer*/

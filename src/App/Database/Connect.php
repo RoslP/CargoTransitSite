@@ -9,7 +9,8 @@ session_start();
 //устанавливает режим обработки ошибок на исключения типа PDOException
 
 //Для доступа к статическому полю класса используется синтаксис ClassName::fieldName
-     class DatabaseConnection {
+
+class Connect {
     private static $pdo;
 
     static protected $dsnData = [

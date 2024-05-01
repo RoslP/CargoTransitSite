@@ -1,44 +1,5 @@
 <?php
-
-class Partition
-{
-    private $footer;
-    private $header;
-
-    public function __construct($footer = false, $header = false)
-    {
-        if ($header) {
-            $this->header = <<<'HTML'
-<header class="container-fluid">
-    <!--добавляет обычный контейнер внутри контейнера на всю длину в виде блока div-->
-    <div class="container">
-        <!--блок row представляет сетку из 12-ти колонок, в них можно размещать колонки с помощью класса col-->
-        <div class="row">
-            <!--сетка в bootstrap делится на 12 колонок, col-4 означает, что данный блок будет занимать 1/3 всей сетки блока row-->
-            <div class="col-4">
-                <h1><a href="index.php">TransitCompany</a></h1>
-            </div>
-            <nav class="col-8">
-                <!--                использование иконок в i из font awesome-->
-                <ul>
-                    <li><a href="index.php"><i class="fa-solid fa-house"></i>Главная</a></li>
-                    <li><a href="#"><i class="fa-solid fa-truck"></i>Заказы</a></li>
-                    <li><i class="fa-solid fa-circle-user"></i>Личный кабинет
-                        <ul id="LK">
-                            <li><a href="authenticate.php">Войти</a></li>
-                            <li><a href="reg.php">Зарегистрироваться</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</header>
-HTML;
-        }
-
-        if ($footer) {
-            $this->footer = <<<HTML
+?>
 <footer class="footer container-fluid">
     <div class="footer-content container">
         <div class="row">
@@ -67,7 +28,7 @@ HTML;
                 </ul>
             </div>
             <div class="footer-section contact-form col-mb-4 col-4">
-                <form action="index.html" method="post">
+                <form action="" method="post">
                     <input type="email" name="email" class="text-input contact-input"
                            placeholder="You email address...">
                     <textarea rows="4" name="message" class="text-input contact-input"
@@ -83,14 +44,3 @@ HTML;
         </div>
     </div>
 </footer>
-HTML;
-        }
-    }
-
-    public function show()
-    {
-        echo $this->footer;
-        echo $this->header;
-    }
-}
-

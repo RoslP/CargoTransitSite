@@ -1,5 +1,4 @@
 <?php
-include 'app/database/connect.php'
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,7 +21,7 @@ include 'app/database/connect.php'
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
     <!--    подключение стрилей-->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <!--    подключение шрифтов от google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +29,7 @@ include 'app/database/connect.php'
 </head>
 <body>
 <!--добавляет контейнер на всю ширину страницы класс из bootstrap5-->
-<?php require 'app/include/header.php'?>
+<?php require '../App/Include/Header.php' ?>
 <!--блок Main-->
 <div class="container">
     <div class="content row ">
@@ -108,7 +107,7 @@ include 'app/database/connect.php'
 <!--блок Main конец-->
 
 <!--footer начало-->
-<?php require 'app/include/footer.php'?>
+<?php require '../App/Include/Footer.php' ?>
 <!--footer конец-->
 
 </body>

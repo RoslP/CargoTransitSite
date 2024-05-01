@@ -1,16 +1,12 @@
 <?php
-require('app/database/database.php');
+require 'Database.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo 'POST';
 } else
     echo 'GET';
 
-//echo $_SERVER['SERVER_PROTOCOL'];
-
-
 class DataProcessing
 {
-
     static public $ErrIfStingEmpty = '';
     public static $arrOfPostsend = [
         'name' => '',
@@ -32,10 +28,9 @@ class DataProcessing
         'login' => '',
         'password' => '',];
 
-    private function DataPostMethod(): void
+    private function DataPostMethodReg(): void
     {
-        $dbmethods = new Database();
-        if (isset($_POST['button-reg'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
             //trim - "отделка" Функция trim удаляет пробелы полученные из формы в случае если пользователь (после/или до) ввода данных нажал пробел
             $name = trim($_POST['Name']);
             $second_name = trim($_POST['Second_name']);
@@ -51,12 +46,6 @@ class DataProcessing
 //            echo '</pre>';
             if ($name === '' || $second_name === '' || $patronymic === '' || $login === '' || $password === '' || $company === '' || $address === '' || $phone === '' || $CurrentRank === '') {
                 self::$ErrIfStingEmpty = 'Не все поля заполнены';
-                self::$arrOfPostsend['name'] = $name;
-                self::$arrOfPostsend['second_name'] = $second_name;
-                self::$arrOfPostsend['patronymic'] = $patronymic;
-                self::$arrOfPostsend['company'] = $company;
-                self::$arrOfPostsend['address'] = $address;
-                self::$arrOfPostsend['phone'] = $phone;
             } elseif (mb_strlen($login) < 3) {
                 self::$ErrIfStingEmpty = 'логин должен быть длинее 3-х символов';
                 self::$arrOfPostsend['name'] = $name;
@@ -65,7 +54,7 @@ class DataProcessing
                 self::$arrOfPostsend['company'] = $company;
                 self::$arrOfPostsend['address'] = $address;
                 self::$arrOfPostsend['phone'] = $phone;
-            } elseif (!empty($sql = (new Database())->selectOne('users', 'login', $login)) || !empty($sql2 = (new Database())->selectOne('users', 'phone_number', $phone))) {
+            } elseif (!empty($sql = (new Database())->selectOne('Users', 'login', $login)) || !empty($sql2 = (new Database())->selectOne('Users', 'phone_number', $phone))) {
 
                 if (!empty($sql)) {
                     $row = $sql;
@@ -95,36 +84,73 @@ class DataProcessing
                 //устанавливаем пустые значения при успешной отправки формы в ее поля
                 foreach (self::$arrOfPostsend as $key => &$value) {
                     $value = '';
+                    //берем id пользователся в запросе. Запрос все равно будет выполнен. Мы используем метод lastInsertId() в метода insertIntoTable()
+                    $id = (new Database())->insertIntoTable('Users', $this->post_data);
+                    //далее выбираем строку по ранее полученному id и присваеваем ее значение в $user
+                    $user = (new Database())->selectOne('Users', 'id_users', $id);
+                    //Использую массив данных из сессии и назначаю ему ключ-значение id - текущий записанный пользователь
+                    $_SESSION['id_users'] = $user['id_users'];
+                    $_SESSION['login'] = $user['login'];
+                    $_SESSION['is_manager'] = $user['is_manager'];
+                    if ($_SESSION['is_manager']) {
+                        header('location: ' . '/Lk/Admin/ManagerRoom.php');
+                    } //перенаправляет пользователя на главную страницу после регистрации
+                    else {
+                        header('location: ' . '/Index.php');
+                    }
                 }
-                //берем id пользователся в запросе. Запрос все равно будет выполнен. Мы используем метод lastInsertId() в метода insertIntoTable()
-                $id = (new Database())->insertIntoTable('users', $this->post_data);
-                //далее выбираем строку по ранее полученному id и присваеваем ее значение в $user
-                $user = (new Database())->selectOne('users', 'id_users', $id);
-                //Использую массив данных из сессии и назначаю ему ключ-значение id - текущий записанный пользователь
-                $_SESSION['id_users'] = $user['id_users'];
-                $_SESSION['login'] = $user['login'];
-                $_SESSION['is_manager'] = $user['is_manager'];
-                if ($_SESSION['is_manager']) {
-                    header('location: ' . '/app/ManagerRoom/OrdersStatus.php');
-                }
-                //перенаправляет пользователя на главную страницу после регистрации
-                else {
-                    header('location: ' . '/index.php');
-                        }
             }
         }
     }
 
+    private function DataPostMethodAuth(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
+            $all_post_data = [];
+            $dbpasswod = '';
+            foreach ($_POST as $key => $value) {
+                if ($key === 'password') {
+                    $dbpasswod .= (new Database())->selectPassword('Users', trim($_POST['login']));
+                    if (password_verify($value, $dbpasswod)) {
+                        $all_post_data[$key] = $dbpasswod;
+                    }
+                } else {
+                    $all_post_data[$key] = trim($value);
+                }
+            }
+            $login = $_POST['login'];
+            $password = $_POST['password'];
+            if ($login === '' || $password === '') {
+                self::$ErrIfStingEmpty = 'Не все поля заполнены';
+            } elseif (!empty((new Database())->selectFromWhereAnd('Users', $all_post_data))) {
+                if ($_SESSION['is_manager'] === '0') {
+                    header('location:' . '/Index.php');
+                }
+                else
+                    header('location:' . '/src/Lk/Admin/ManagerRoom.php');
+            } else {
+                self::$ErrIfStingEmpty = 'Неверное имя пользователи или пароль';
+            }
+        }
+    }
 
     function registration(): void
     {
-        $this->DataPostMethod();
+        $this->DataPostMethodReg();
     }
 
+    function authenticate(): void
+    {
+        $this->DataPostMethodAuth();
+    }
+    function TakeOllDataInUsers(): void
+    {
+        (new Database())->selectFrom();
+    }
 }
 
 //    $dbmethods->tt($post_data);
-//    $id = $dbmethods->insertIntoTable('users', $post_data);
+//    $id = $dbmethods->insertIntoTable('Users', $post_data);
 //    echo $id;
-//    $lastRow = $dbmethods->selectOne('users', $id);
+//    $lastRow = $dbmethods->selectOne('Users', $id);
 //    $dbmethods->tt($lastRow);
