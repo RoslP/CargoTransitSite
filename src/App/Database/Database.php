@@ -1,4 +1,5 @@
 <?php require 'Connect.php';
+
 class Database
 {
     private $pdo;
@@ -34,7 +35,7 @@ class Database
         // Преобразование результата в формат JSON
         $jsonData = json_encode($users);
 // Запись данных в файл data.json
-        $file = '../../assets/json/request.json';
+        $file = '../../assets/json/requestStations.json';
         file_put_contents($file, $jsonData);
     }
 
@@ -163,4 +164,42 @@ class Database
         $this->dbErrorInfo($query);
     }
 
+    public function GetAllFromTable($tableName)
+    {
+        $sql = "SELECT * FROM $tableName";
+        $query = $this->pdo->prepare($sql);
+        $query->execute();
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        $Orders = $data[0];
+        $tables =[
+            'users', 'cargo','stations'
+        ];
+        $i=0;
+        foreach ($Orders as $key => $value) {
+            if ($key === 'order_id') {
+                $jsonData = json_encode($Orders['order_id']);
+                $file = '../../assets/json/order.json';
+                file_put_contents($file, $jsonData);
+                continue;
+            }
+            $sql = "SELECT * FROM $tables[$i] WHERE $key = '$value'";
+            $query = $this->pdo->prepare($sql);
+            $query->execute();
+            $data = $query->fetchAll(PDO::FETCH_ASSOC);
+            $jsonData = json_encode($data);
+
+            if ($key === 'id_users') {
+                $file = '../../assets/json/requestUsers.json';
+                file_put_contents($file, $jsonData);
+            } elseif ($key === 'cargo_id') {
+                $file = '../../assets/json/requestCargos.json';
+                file_put_contents($file, $jsonData);
+            } elseif ($key === 'station_id') {
+                $file = '../../assets/json/requestStations.json';
+                file_put_contents($file, $jsonData);
+            }
+            $i++;
+        }
+    }
 }
+

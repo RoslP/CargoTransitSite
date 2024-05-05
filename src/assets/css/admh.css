@@ -111,6 +111,7 @@ header ul li:hover #LK {
 #LK li:hover {
     background-color: rgb(204, 195, 176);
 }
+
 /*конец header*/
 /*footer*/
 /*footer*/
@@ -150,4 +151,56 @@ footer {
     transition: 0.3s;
     color: #053674;
 }
+
 /*конец footer*/
+
+/*Начало стилей для таблицы менеджера*/
+
+.ManagerCargosTable {
+   text-align: center;
+    border: 2px solid #000000;
+    background: linear-gradient(to right, #aaa08d, #ccc3b0, #d1c17b, #807d8c, #546b82); /* Задайте фон как градиент */
+    background-size: 500% auto;
+    animation: gradient 10s linear infinite;
+}
+
+/* Добавьте анимацию градиента */
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+.HeadOfTableCargos{
+   border: 1px solid #000000;
+}
+.HeadTableElement{
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-style: italic;
+    border: 1px solid #000000;
+}
+.tableElement{
+    border: 1px solid #000000;
+    font-size: 1.2rem ;
+}
+.table-container{
+padding: 20px;
+}
+
+.TableStructure{
+    background-color: rgba(197, 184, 174, 0.44);
+    border-radius: 12px;
+    margin: 20px 0px 20px 0px;
+}
+
+.RowManagerTableDo{
+    padding-bottom: 20px;
+}
+
+/*конец стилей для таблицы менеджера*/

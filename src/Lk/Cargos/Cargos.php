@@ -21,6 +21,7 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
+    <script src="/src/assets/js/Process.js"></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../../assets/css/admh.css">
     <!--    подключение шрифтов от google fonts-->
@@ -33,6 +34,7 @@ session_start();
 
 <!--блок Main-->
 <div class="container">
+
     <?php echo 'Оформить заказ на грузоперевозку'?>
 </div>
 <!--блок Main конец-->

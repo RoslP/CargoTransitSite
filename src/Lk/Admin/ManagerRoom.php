@@ -23,6 +23,7 @@ require_once '../../App/Call/Call.php';
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/assets/js/Process.js"></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../../assets/css/admh.css">
     <!--    подключение шрифтов от google fonts-->
@@ -35,24 +36,75 @@ require_once '../../App/Call/Call.php';
 <!--блок Main-->
 <div class="container">
     <div class="row">
-        <div class="sidebar col-4">
+        <div class="sidebar col-2">
             <ul>
                 <li>
-                    <a href="#">Статусы заказов</a>
+                    <a href="#" id="ToggleOrders">Статусы заказов</a>
                 </li>
                 <li>
-                    <a href="#">Пользователи</a>
+                    <a href="#" id="ToggleUsers">Пользователи</a>
+                </li>
+                <li>
+                    <a href="#" id="ToggleStations">Управление станциями</a>
                 </li>
             </ul>
         </div>
-        <form method="post" action="ManagerRoom.php">
-            <div class="row col-2">
-                <button name="post-data-in-lk" class="btn btn-primary " type="submit" value="1">Получить данные</button>
-                <?php echo 1 ?>
+<!--        Далее идет таблица всех заказов менеджера-->
+        <div id="IdTableManager" class="TableStructure col-10" style="display: block">
+            <div class="table-container col-12">
+                <table class="ManagerCargosTable">
+                    <thead>
+                    <tr class="HeadOfTableCargos col-12">
+                        <th class="HeadTableElement col-1">Номер</th>
+                        <th class="HeadTableElement col-1">Клиент</th>
+                        <th class="HeadTableElement col-1">Стоимость</th>
+                        <th class="HeadTableElement col-1">Станция</th>
+                        <th class="HeadTableElement col-1">Город</th>
+                        <th class="HeadTableElement col-1">Груз</th>
+                        <th class="HeadTableElement col-1">Упаковка</th>
+                        <th class="HeadTableElement col-1">Вес</th>
+                        <th class="HeadTableElement col-2">Cтатус</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="CellsContentOfTableCargos col-12">
+                        <td class="tableElement" id="LId">1</td>
+                        <td class="tableElement" id="LStation"></td>
+                        <td class="tableElement" id="LCity"></td>
+                        <td class="tableElement" id="LStatus"></td>
+                        <td class="tableElement" ><input type="checkbox"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-        </form>
+            <div class=" col-12">
+                <div class="row RowManagerTableDo">
+                    <div class="col-3">
+                        <button class="btn btn-success">Заказ выполнен</button>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-danger" style="margin-left: 20px">Отменить заказ</button>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" type="text" value="Введите причину отмены">
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        Далее идет форма станций менеджера-->
+        <div id="IdFormStationsManager" class="TableStructure col-10" style="display: none">
+            <div class="table-container col-12">
+                <form name="AddStationForm" class="AddStationForm" method="post" action="ManagerRoom.php">
+                    <label>Название станции</label>
+                    <input name="name" placeholder="Введите название станции" required>
+                    <input name="city" placeholder="Введите город станции" required>
+                    <button  type="submit">Добавить станцию</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
 <!--блок Main конец-->
 <!--footer начало-->
 <?php require '../../App/Include/Footer.php' ?>

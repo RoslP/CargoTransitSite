@@ -134,6 +134,20 @@ class DataProcessing
         }
     }
 
+    private function AddNewStation()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'])) {
+            $postData = [];
+            foreach ($_POST as $key => $value) {
+                $postData[$key] = trim($value);
+            }
+            (new Database())->insertIntoTable('stations',$postData);
+            header("Location: ManagerRoom.php");
+            exit;
+        }
+    }
+
+
     function registration(): void
     {
         $this->DataPostMethodReg();
@@ -146,6 +160,14 @@ class DataProcessing
     function TakeOllDataInUsers(): void
     {
         (new Database())->selectFrom();
+    }
+    function GetAllOrders(): void
+    {
+       (new Database())->GetAllFromTable('orders');
+    }
+    function AddStation(): void
+    {
+        $this->AddNewStation();
     }
 }
 
