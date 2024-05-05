@@ -30,9 +30,8 @@ class Database
         // Запрос к базе данных
         $sql = "SELECT * FROM Users";
         $result = $this->pdo->query($sql);
-
-// Преобразование результата в формат JSON
         $users = $result->fetchAll(PDO::FETCH_ASSOC);
+        // Преобразование результата в формат JSON
         $jsonData = json_encode($users);
 // Запись данных в файл data.json
         $file = '../../assets/json/request.json';

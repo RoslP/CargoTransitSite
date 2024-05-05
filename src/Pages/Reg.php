@@ -22,6 +22,7 @@ require '../App/Call/Call.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
+    <script src="/src/assets/js/Process.js"></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!--    подключение шрифтов от google fonts-->
@@ -34,7 +35,7 @@ require '../App/Call/Call.php';
 <?php require '../App/Include/Header.php' ?>
 <!--Main Block-->
 <div class="container">
-    <form class="row registration-form  justify-content-center justify-content-md-center" method="post"
+    <form id="RegistrationForm" class="row registration-form  justify-content-center justify-content-md-center" method="post"
           action='Reg.php'>
         <h4>Форма регистрации</h4>
         <div class="col-12 col-md-4 errString"><?php
@@ -77,8 +78,17 @@ require '../App/Call/Call.php';
             <label for="validationDefaultUsername" class="form-label">Пароль</label>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
-                <input name="Password" type="text" class="form-control" id="validationDefaultUsername"
-                       aria-describedby="inputGroupPrepend2" placeholder="Введите пароль">
+                <input name="Password" type="password" class="form-control" id="validationPasswordInput"
+                       aria-describedby="inputGroupPrepend2" placeholder="Введите пароль" >
+            </div>
+        </div>
+        <div class="w-100"></div>
+        <div class="col-12  col-md-4">
+            <label for="validationDefaultUsername" class="form-label">Пароль</label>
+            <div class="input-group">
+                <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                <input name="RePassword" type="password" class="form-control" id="validationPasswordInput2"
+                       aria-describedby="inputGroupPrepend2" placeholder="Повторите пароль" >
             </div>
         </div>
         <div class="w-100"></div>
