@@ -157,7 +157,7 @@ footer {
 /*Начало стилей для таблицы менеджера*/
 
 .ManagerCargosTable {
-   text-align: center;
+    text-align: center;
     border: 2px solid #000000;
     background: linear-gradient(to right, #aaa08d, #ccc3b0, #d1c17b, #807d8c, #546b82); /* Задайте фон как градиент */
     background-size: 500% auto;
@@ -176,31 +176,41 @@ footer {
         background-position: 0% 0%;
     }
 }
-.HeadOfTableCargos{
-   border: 1px solid #000000;
+
+.HeadOfTableCargos {
+    border: 1px solid #000000;
 }
-.HeadTableElement{
+
+.HeadTableElement {
     font-size: 1.4rem;
     font-weight: bold;
     font-style: italic;
     border: 1px solid #000000;
 }
-.tableElement{
+
+.tableElement {
     border: 1px solid #000000;
-    font-size: 1.2rem ;
-}
-.table-container{
-padding: 20px;
+    font-size: 1.2rem;
 }
 
-.TableStructure{
+.table-container {
+    padding: 20px;
+}
+
+.TableStructure {
     background-color: rgba(197, 184, 174, 0.44);
     border-radius: 12px;
     margin: 20px 0px 20px 0px;
 }
 
-.RowManagerTableDo{
+.RowManagerTableDo {
     padding-bottom: 20px;
 }
 
 /*конец стилей для таблицы менеджера*/
+
+/*Далее вывод итоговой стоимости при оформлении заказа клиентом*/
+.divCurrentPrice {
+    display: flex;
+    justify-content: center;
+}

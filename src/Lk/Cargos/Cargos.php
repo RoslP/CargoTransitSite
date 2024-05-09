@@ -41,29 +41,31 @@ require '../../App/Call/Call.php';
     <h2>Оформить заказ на грузоперевозку</h2>
     <div class="row">
         <div class="col-4">
-            <div >
+            <div>
                 <label>Введите название груза</label>
-                <input type="text">
+                <input id="cargoName" type="text">
             </div>
             <div class="w-100"></div>
-            <div >
+            <div>
                 <label>Введите вес товара в кг.</label>
-                <input type="text">
+                <input id="cargoWeight" type="text">
             </div>
             <div class="w-100"></div>
-            <div >
+            <div>
                 <label>Выберите тип упаковки</label>
                 <select id="defaultSelectLoad" class="form-select form-select-sm"
                         aria-label="Small select example"></select>
+
             </div>
             <div class="w-100"></div>
-            <div >
+            <div>
                 <div id="selectContainer"></div>
                 <button id="add-packing" type="button">Добавить упаковку</button>
+                <button id="delete-earlier" type="button">Удалить ранее</button>
                 <div class="w-100"></div>
             </div>
             <div class="w-100"></div>
-            <div >
+            <div>
                 <label>Выберите станцию получения</label>
                 <select id="selectStationsImUserRoom" class="form-select form-select-sm"
                         aria-label="Small select example">
@@ -72,11 +74,14 @@ require '../../App/Call/Call.php';
             </div>
             <div class="w-100"></div>
             <div>
-                <button>Расчитать стоимость</button>
+                <button id="price-calculation" type="button">Расчитать стоимость</button>
             </div>
         </div>
-        <div class="col-8">
-            <button class="delete-earlier-">Удалить ранее</button>
+        <div class="divCurrentPrice col-8">
+            <label id="currentPrice"></label>
+            <br>
+            <label id="explanations"></label>
+            </div>
         </div>
     </div>
 </div>
