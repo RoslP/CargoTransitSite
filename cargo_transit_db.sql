@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 01 2024 г., 15:15
+-- Время создания: Май 09 2024 г., 17:41
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -20,6 +20,94 @@ SET time_zone = "+00:00";
 --
 -- База данных: `cargo_transit_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `cargo`
+--
+
+CREATE TABLE `cargo` (
+  `cargo_id` int NOT NULL,
+  `cargo_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `weight` decimal(10,0) NOT NULL,
+  `price` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `packaging` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Таблица грузов';
+
+--
+-- Дамп данных таблицы `cargo`
+--
+
+INSERT INTO `cargo` (`cargo_id`, `cargo_name`, `weight`, `price`, `packaging`) VALUES
+(1, 'Яблоки', '100', '20000', 'Коробки');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `order_id` int NOT NULL,
+  `id_users` int NOT NULL,
+  `cargo_id` int NOT NULL,
+  `station_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `id_users`, `cargo_id`, `station_id`) VALUES
+(1, 5, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `packaging`
+--
+
+CREATE TABLE `packaging` (
+  `packing_id` int NOT NULL,
+  `cargo_packing` varchar(50) NOT NULL,
+  `price_of_packing` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Дамп данных таблицы `packaging`
+--
+
+INSERT INTO `packaging` (`packing_id`, `cargo_packing`, `price_of_packing`) VALUES
+(2, 'Коробки', 100),
+(3, 'Паллеты', 50),
+(4, 'Мешки', 80),
+(5, 'Контейнеры', 20000),
+(6, 'Термоупаковка', 1000),
+(7, 'Стреч-пленка', 500);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `stations`
+--
+
+CREATE TABLE `stations` (
+  `station_id` int NOT NULL,
+  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `city` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Станции через которые пройдет груз';
+
+--
+-- Дамп данных таблицы `stations`
+--
+
+INSERT INTO `stations` (`station_id`, `name`, `city`) VALUES
+(1, 'Дальняя', 'Владивосток'),
+(2, 'База', 'Москва'),
+(4, 'Вокзальная', 'Монтаны'),
+(9, 'Большая', 'Хабаровск'),
+(13, 'Приморская', 'хабаровск');
 
 -- --------------------------------------------------------
 
@@ -90,11 +178,44 @@ INSERT INTO `users` (`id_users`, `is_manager`, `first_name`, `second_name`, `pat
 (59, 0, 'вфывфы', 'вфывфы', 'вфывфы', 'фыаыф', 'ыфаафы', 'фыаыаф', 'ыфааыф', '$2y$10$AyGTNGP/aGz0gto.yZ1jbOkDSyvNwirqcE8/Eom08Ml0J9pQlwJSy'),
 (60, 0, 'dasdsa', 'dsadas', 'das', 'dasdsa', 'asdsad', 'dsadas', 'asd', '$2y$10$sBav.EW93M6bHlj/z6Gu2OFK5f2eK8TmugoywYF8ieKy6m2Vo0Wxe'),
 (62, 1, 'gtfdsgds', 'fsdfds', 'fdsfdsfds', 'dsggdsg', 'dsgdsg', 'sdgdsg', 'fgsfsdg', '$2y$10$UMQCyvaZ0mnXuwIebcNY5u/4B8wqI0yXplphSa9Up4Syya3wz.dTi'),
-(64, 0, 'hgfhgf', 'hgf', 'hgfhgfh', 'fghfgh', 'gfhfgh', 'gfh', 'gfgfh', '$2y$10$U5wrbt7BLppVfJQfkStA2uWV3MPFN/RtQD/22hQyzub8wChJFHDKa');
+(64, 0, 'hgfhgf', 'hgf', 'hgfhgfh', 'fghfgh', 'gfhfgh', 'gfh', 'gfgfh', '$2y$10$U5wrbt7BLppVfJQfkStA2uWV3MPFN/RtQD/22hQyzub8wChJFHDKa'),
+(66, 0, '123', '123', '123', '123', '123', '123', '123', '$2y$10$69y7e5qKpZ66/SlvNeRfVuBifl0BO6CfgjSvmUPiQ/f1I6UEEAvDO'),
+(68, 0, 'fafs', 'asffsa', 'fasfas', 'fas', 'afs', '123', 'fasasf', '$2y$10$pqi2onF4sUiytVGjpWScreEKbLUik/H/6kdOPja0ygncsxj2uxE8S'),
+(70, 0, 'фывфыв', 'фвывфы', 'ыфввфы', 'фыввыф', 'вфы', 'фыв', 'вфы', '$2y$10$.B7JJu/p0Q9.rKiZZxVwMeVfR4zj3fVXCXxu9cDDc/Lz11U2gl81m'),
+(72, 0, 'вфы', 'фыфвы', 'фывв', 'вфывыф', 'рпарарапр', 'ыфввфы', 'фыввыф', '$2y$10$qYObXGeXt.SPBXkOtDHKzOvdc.Ul17zbSBloATf8l34kI6mrkgVta'),
+(74, 0, 'ыфв', 'фыввыф', 'выф', 'фыв', 'фыв', 'фыв', 'фвы', '$2y$10$PyP3zbuXVJy6Hvsot99TtO8LfFuBTmDTuTu1HdhNrcdbrMVOADqI.'),
+(76, 0, 'фывфыв', 'фыввфы', 'выфвфы', 'фыв', 'вывфы', 'фывыфв123', 'вфывыф', '$2y$10$HFyuucTC1grrE3gBXNo55Ov7CKcwP1gpYgMUxGp2USWiWCbwebdwy');
 
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `cargo`
+--
+ALTER TABLE `cargo`
+  ADD PRIMARY KEY (`cargo_id`);
+
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `client_id` (`id_users`),
+  ADD KEY `station_id` (`station_id`),
+  ADD KEY `cargo_id` (`cargo_id`);
+
+--
+-- Индексы таблицы `packaging`
+--
+ALTER TABLE `packaging`
+  ADD PRIMARY KEY (`packing_id`);
+
+--
+-- Индексы таблицы `stations`
+--
+ALTER TABLE `stations`
+  ADD PRIMARY KEY (`station_id`);
 
 --
 -- Индексы таблицы `users`
@@ -109,10 +230,46 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `cargo`
+--
+ALTER TABLE `cargo`
+  MODIFY `cargo_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблицы `packaging`
+--
+ALTER TABLE `packaging`
+  MODIFY `packing_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT для таблицы `stations`
+--
+ALTER TABLE `stations`
+  MODIFY `station_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`station_id`) REFERENCES `stations` (`station_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`cargo_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

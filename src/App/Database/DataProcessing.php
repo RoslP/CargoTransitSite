@@ -157,22 +157,25 @@ class DataProcessing
     {
         $this->DataPostMethodAuth();
     }
+    //хз что за функция записывает всех пользователей
     function TakeOllDataInUsers(): void
     {
         (new Database())->selectFrom();
     }
+    //Вывод загрузка всех заказов для менеджера с дальнейшей записью в order и request.json файлы
     function GetAllOrders(): void
     {
        (new Database())->GetAllFromTable('orders');
     }
+    //Добавление станции менеджером
     function AddStation(): void
     {
         $this->AddNewStation();
     }
+    //загрузка списка станций пользователю
+    function loadStation(): void
+    {
+        (new Database())->selectFrom('stations');
+        (new Database())->selectFrom('packaging');
+    }
 }
-
-//    $dbmethods->tt($post_data);
-//    $id = $dbmethods->insertIntoTable('Users', $post_data);
-//    echo $id;
-//    $lastRow = $dbmethods->selectOne('Users', $id);
-//    $dbmethods->tt($lastRow);

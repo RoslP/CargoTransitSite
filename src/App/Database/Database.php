@@ -26,16 +26,20 @@ class Database
         }
     }
 
-    public function selectFrom(): void
+    public function selectFrom($tableName): void
     {
+        $allowedTables=['cargo','orders','stations','users','packaging'];
+        if (!in_array($tableName, $allowedTables)) {
+            die('неверное имя таблицы');
+        }
         // Запрос к базе данных
-        $sql = "SELECT * FROM Users";
+        $sql = "SELECT * FROM $tableName";
         $result = $this->pdo->query($sql);
         $users = $result->fetchAll(PDO::FETCH_ASSOC);
         // Преобразование результата в формат JSON
         $jsonData = json_encode($users);
 // Запись данных в файл data.json
-        $file = '../../assets/json/requestStations.json';
+        $file = "../../assets/json/$tableName.json";
         file_put_contents($file, $jsonData);
     }
 

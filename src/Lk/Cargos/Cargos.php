@@ -1,5 +1,6 @@
 <?php
-session_start();
+require '../../App/Database/DataProcessing.php';
+require '../../App/Call/Call.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,6 +22,9 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
+    <!--    Добавляю j-query-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--    Добавляю свой js-->
     <script src="/src/assets/js/Process.js"></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../../assets/css/admh.css">
@@ -34,8 +38,47 @@ session_start();
 
 <!--блок Main-->
 <div class="container">
-
-    <?php echo 'Оформить заказ на грузоперевозку'?>
+    <h2>Оформить заказ на грузоперевозку</h2>
+    <div class="row">
+        <div class="col-4">
+            <div >
+                <label>Введите название груза</label>
+                <input type="text">
+            </div>
+            <div class="w-100"></div>
+            <div >
+                <label>Введите вес товара в кг.</label>
+                <input type="text">
+            </div>
+            <div class="w-100"></div>
+            <div >
+                <label>Выберите тип упаковки</label>
+                <select id="defaultSelectLoad" class="form-select form-select-sm"
+                        aria-label="Small select example"></select>
+            </div>
+            <div class="w-100"></div>
+            <div >
+                <div id="selectContainer"></div>
+                <button id="add-packing" type="button">Добавить упаковку</button>
+                <div class="w-100"></div>
+            </div>
+            <div class="w-100"></div>
+            <div >
+                <label>Выберите станцию получения</label>
+                <select id="selectStationsImUserRoom" class="form-select form-select-sm"
+                        aria-label="Small select example">
+                    <!--        Далее идет выбор из выпадающего списка с помощью Process.js-->
+                </select>
+            </div>
+            <div class="w-100"></div>
+            <div>
+                <button>Расчитать стоимость</button>
+            </div>
+        </div>
+        <div class="col-8">
+            <button class="delete-earlier-">Удалить ранее</button>
+        </div>
+    </div>
 </div>
 <!--блок Main конец-->
 <!--footer начало-->

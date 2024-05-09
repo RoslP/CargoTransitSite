@@ -1,5 +1,4 @@
 <?php
-namespace LK\Users;
 ?>
 <!doctype html>
 <html lang="en">
