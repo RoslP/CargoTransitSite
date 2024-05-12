@@ -14,10 +14,13 @@
                 <ul>
 
                     <li><a href="/Index.php"><i class="fa-solid fa-house"></i>Главная</a></li>
-                    <?php if (isset($_SESSION['id_users'])) : ?>
-                    <li><a href="/src/Lk/Cargos/Cargos.php"><i class="fa-solid fa-truck"></i>Заказы</a></li>
+                    <?php if (isset($_SESSION['is_manager']) && $_SESSION['is_manager'] === '1') : ?>
+                        <li><a href="/src/Lk/Admin/ManagerRoom.php"><i class="fa-solid fa-truck"></i>Управление заказами</a>
+                        </li>
+                    <?php elseif (isset($_SESSION['is_manager']) && $_SESSION['is_manager'] === '0'): ?>
+                        <li><a href="/src/Lk/Cargos/Cargos.php"><i class="fa-solid fa-truck"></i>Заказы</a></li>
                     <?php else: ?>
-                    <li><a href="/src/Pages/Authenticate.php"><i class="fa-solid fa-truck"></i>Заказы</a></li>
+                        <li><a href="/src/Pages/Authenticate.php"><i class="fa-solid fa-truck"></i>Заказы</a></li>
                     <?php endif; ?>
                     <li>
                         <!--                        ветвление первое условие входа-->
@@ -31,7 +34,7 @@
                             <?php if ($_SESSION['is_manager']) : ?>
                                 <ul id="LK">
                                     <!--                                     <li><a href="UserRoom.php">Статусы заказов</a></li>-->
-                                    <li><a href="/src/Lk/Admin/ManagerRoom.php">Управление заказами</a></li>
+                                    <li><a href="/src/Lk/Users/UserRoom.php">Личный кабинет</a></li>
                                     <li><a href="/src/Pages/Sd.php">Выход</a></li>
                                 </ul>
                             <?php endif; ?>

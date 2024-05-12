@@ -1,5 +1,4 @@
 <?php
-session_start();
 ?>
 <header class="container-fluid">
     <!--добавляет обычный контейнер внутри контейнера на всю длину в виде блока div-->
@@ -14,22 +13,19 @@ session_start();
                 <!--                использование иконок в i из font awesome-->
                 <ul>
                     <li><a href="/Index.php"><i class="fa-solid fa-house"></i>Главная</a></li>
-                    <li><a href="/src/Lk/Cargos/Cargos.php"><i class="fa-solid fa-truck"></i>Заказы</a></li>
+                    <?php if (!$_SESSION['is_manager']) : ?>
+                        <li><a href="/src/Lk/Cargos/Cargos.php"><i class="fa-solid fa-truck"></i>Заказы</a></li>
+                    <?php else : ?>
+                        <li><a href="/src/Lk/Admin/ManagerRoom.php"><i class="fa-solid fa-truck"></i>Управление заказами</a></li>
+                    <?php endif; ?>
                     <li>
                         <!--                        ветвление первое условие входа-->
-                            <i class="fa-solid fa-circle-user"></i>
-                            <?php echo $_SESSION['login']; ?>
-                            <ul id="LK">
-                                <li><a href="/src/Lk/Users/UserRoom.php">Личный кабинет</a></li>
-                                <li><a href='/src/Pages/Sd.php'>Выход</a></li>
-                            </ul>
-                            <?php if ($_SESSION['is_manager']) : ?>
-                                <ul id="LK">
-                                    <!--                                     <li><a href="UserRoom.php">Статусы заказов</a></li>-->
-                                    <li><a href="/src/Lk/Admin/ManagerRoom.php">Управление заказами</a></li>
-                                    <li><a href="/src/Pages/Sd.php">Выход</a></li>
-                                </ul>
-                            <?php endif; ?>
+                        <i class="fa-solid fa-circle-user"></i>
+                        <?php echo $_SESSION['login']; ?>
+                        <ul id="LK">
+                            <li><a href="/src/Lk/Users/UserRoom.php">Личный кабинет</a></li>
+                            <li><a href='/src/Pages/Sd.php'>Выход</a></li>
+                        </ul>
                     </li>
                 </ul>
             </nav>

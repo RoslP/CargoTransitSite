@@ -1,5 +1,4 @@
 <?php
-require_once '../App/Database/DataProcessing.php';
 require_once '../App/Call/Call.php';
 ?>
 

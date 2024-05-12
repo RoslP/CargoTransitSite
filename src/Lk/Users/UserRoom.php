@@ -1,4 +1,5 @@
 <?php
+require '../../App/Call/Call.php'
 ?>
 <!doctype html>
 <html lang="en">

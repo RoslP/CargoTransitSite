@@ -1,5 +1,4 @@
 <?php
-require '../App/Database/DataProcessing.php';
 require '../App/Call/Call.php';
 ?>
 <!doctype html>
@@ -22,7 +21,7 @@ require '../App/Call/Call.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
-    <script src="/src/assets/js/Process.js"></script>
+    <script src="/src/assets/js/OrderProcessing.js"></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!--    подключение шрифтов от google fonts-->

@@ -160,12 +160,12 @@ class DataProcessing
     //хз что за функция записывает всех пользователей
     function TakeOllDataInUsers(): void
     {
-        (new Database())->selectFrom();
+        (new Database())->selectFrom('users');
     }
     //Вывод загрузка всех заказов для менеджера с дальнейшей записью в order и request.json файлы
     function GetAllOrders(): void
     {
-       (new Database())->GetAllFromTable('orders');
+       (new Database())->GetAllFromOrdersAndPutUsersStationCargosAndOrdersInJson('orders');
     }
     //Добавление станции менеджером
     function AddStation(): void
@@ -173,9 +173,13 @@ class DataProcessing
         $this->AddNewStation();
     }
     //загрузка списка станций пользователю
-    function loadStation(): void
+    function loadSelects(): void
     {
         (new Database())->selectFrom('stations');
         (new Database())->selectFrom('packaging');
+    }
+    function CreateOrder($data):void
+    {
+        (new Database())->CreateOrder($data['playload']);
     }
 }

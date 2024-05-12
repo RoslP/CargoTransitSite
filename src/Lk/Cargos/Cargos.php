@@ -1,5 +1,4 @@
 <?php
-require '../../App/Database/DataProcessing.php';
 require '../../App/Call/Call.php';
 ?>
 <!doctype html>
@@ -25,7 +24,9 @@ require '../../App/Call/Call.php';
     <!--    Добавляю j-query-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!--    Добавляю свой js-->
-    <script src="/src/assets/js/Process.js"></script>
+    <script src="/src/assets/js/OrderProcessing.js"></script>
+    <!--    ajax отправляемый на сервер-->
+    <script src="/src/assets/js/ManagerProcessing.js"></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../../assets/css/admh.css">
     <!--    подключение шрифтов от google fonts-->
@@ -67,7 +68,7 @@ require '../../App/Call/Call.php';
             <div class="w-100"></div>
             <div>
                 <label>Выберите станцию получения</label>
-                <select id="selectStationsImUserRoom" class="form-select form-select-sm"
+                <select id="selectStationsInUserRoom" class="form-select form-select-sm"
                         aria-label="Small select example">
                     <!--        Далее идет выбор из выпадающего списка с помощью Process.js-->
                 </select>
@@ -81,6 +82,9 @@ require '../../App/Call/Call.php';
             <label id="currentPrice"></label>
             <br>
             <label id="explanations"></label>
+            <div id="BlockOfAcceptOrDenyOrder" style="display: none">
+                <button id="create-order" type="button">Оформить заказ</button>
+                <button id="cancel-order" type="button">Отменить выбор</button>
             </div>
         </div>
     </div>

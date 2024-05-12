@@ -1,5 +1,4 @@
 <?php
-require_once '../../App/Database/DataProcessing.php';
 require_once '../../App/Call/Call.php';
 ?>
 <!doctype html>
@@ -23,7 +22,7 @@ require_once '../../App/Call/Call.php';
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/src/assets/js/Process.js"></script>
+    <script src="/src/assets/js/ManagerProcessing.js"></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../../assets/css/admh.css">
     <!--    подключение шрифтов от google fonts-->
@@ -97,6 +96,7 @@ require_once '../../App/Call/Call.php';
                 <form name="AddStationForm" class="AddStationForm" method="post" action="ManagerRoom.php">
                     <label>Название станции</label>
                     <input name="name" placeholder="Введите название станции" required>
+                    <label>Город станции</label>
                     <input name="city" placeholder="Введите город станции" required>
                     <button  type="submit">Добавить станцию</button>
                 </form>

@@ -28,7 +28,7 @@ class Database
 
     public function selectFrom($tableName): void
     {
-        $allowedTables=['cargo','orders','stations','users','packaging'];
+        $allowedTables = ['cargo', 'orders', 'stations', 'users', 'packaging'];
         if (!in_array($tableName, $allowedTables)) {
             die('неверное имя таблицы');
         }
@@ -120,14 +120,25 @@ class Database
         $coll = '';
         $masks = '';
         foreach ($data as $key => $value) {
-            if ($i === 0) {
-                $coll = $coll . "$key";
-                $masks = $masks . "'" . "$value" . "'";
+            if (is_string($value)) {
+                if ($i === 0) {
+                    $coll = $coll . "$key";
+                    $masks = $masks . "'" . "$value" . "'";
+                } else {
+                    $coll = $coll . ", $key";
+                    $masks = $masks . ", '$value" . "'";
+                }
+                $i++;
             } else {
-                $coll = $coll . ", $key";
-                $masks = $masks . ", '$value" . "'";
+                if ($i === 0) {
+                    $coll = $coll . "$key";
+                    $masks = $masks . $value;
+                } else {
+                    $coll = $coll . ", $key";
+                    $masks = $masks . ", " . $value;
+                }
+                $i++;
             }
-            $i++;
         }
         $sql = " INSERT INTO $tableName ($coll) VALUES ($masks)";
         $query = $this->pdo->prepare($sql);
@@ -168,42 +179,89 @@ class Database
         $this->dbErrorInfo($query);
     }
 
-    public function GetAllFromTable($tableName)
+    public function GetAllFromOrdersAndPutUsersStationCargosAndOrdersInJson($tableName)
     {
         $sql = "SELECT * FROM $tableName";
         $query = $this->pdo->prepare($sql);
         $query->execute();
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
         $Orders = $data[0];
-        $tables =[
-            'users', 'cargo','stations'
+        $jsonData = json_encode($Orders);
+        $file = "../../assets/json/order.json";
+        file_put_contents($file, $jsonData);
+        $tables = [
+            'users', 'cargo', 'stations'
         ];
-        $i=0;
+        $i = 0;
         foreach ($Orders as $key => $value) {
-            if ($key === 'order_id') {
-                $jsonData = json_encode($Orders['order_id']);
-                $file = '../../assets/json/order.json';
-                file_put_contents($file, $jsonData);
+            if ($i >= 3) {
                 continue;
-            }
-            $sql = "SELECT * FROM $tables[$i] WHERE $key = '$value'";
-            $query = $this->pdo->prepare($sql);
-            $query->execute();
-            $data = $query->fetchAll(PDO::FETCH_ASSOC);
-            $jsonData = json_encode($data);
+            } else {
+                if ($key === 'order_id') {
+                    $jsonData = json_encode($Orders['order_id']);
+                    $file = '../../assets/json/order.json';
+                    file_put_contents($file, $jsonData);
+                    continue;
+                }
+                $sql = "SELECT * FROM $tables[$i] WHERE $key = '$value'";
+                $query = $this->pdo->prepare($sql);
+                $query->execute();
+                $data = $query->fetchAll(PDO::FETCH_ASSOC);
+                $jsonData = json_encode($data);
 
-            if ($key === 'id_users') {
-                $file = '../../assets/json/requestUsers.json';
-                file_put_contents($file, $jsonData);
-            } elseif ($key === 'cargo_id') {
-                $file = '../../assets/json/requestCargos.json';
-                file_put_contents($file, $jsonData);
-            } elseif ($key === 'station_id') {
-                $file = '../../assets/json/requestStations.json';
-                file_put_contents($file, $jsonData);
+                if ($key === 'id_users') {
+                    $file = '../../assets/json/requestUsers.json';
+                    file_put_contents($file, $jsonData);
+                } elseif ($key === 'cargo_id') {
+                    $file = '../../assets/json/requestCargos.json';
+                    file_put_contents($file, $jsonData);
+                } elseif ($key === 'station_id') {
+                    $file = '../../assets/json/requestStations.json';
+                    file_put_contents($file, $jsonData);
+                }
+                $i++;
             }
-            $i++;
         }
+    }
+
+    public function CreateOrder($data): void
+    {
+        $newData = [];
+        foreach ($data as $key => $value) {
+            $newData[$key] = $value;
+        }
+
+        //Подготовка к инсерту в грузы
+        $cargoData = [
+            'cargo_name' => $newData['cargoNamevalue'] ?? null,
+            'weight' => $newData['cargoWeightvalue'] ?? null,
+        ];
+        $lastCargoId = $this->insertIntoTable('cargo', $cargoData);
+
+        $stringOfPacking = '';
+        $firstGo = true;
+        //Подготовка к инсерту в заказы
+        foreach ($newData as $key => $value) {
+            if (preg_match("/^Select\d.*name$/", $key)) {
+                if (!$firstGo) {
+                    $stringOfPacking .= ", {$value}";
+                } else {
+                    $stringOfPacking .= "{$value}";
+                    $firstGo = false;
+                }
+            }
+        }
+
+        $insertOrderData = [
+            'id_users' => intval($_SESSION['id_users']),
+            'cargo_id' => intval($lastCargoId),
+            'station_id' => intval($newData['StationId'] ?? null),
+            'packing' => $stringOfPacking,
+            'price' => $newData['price'] ?? null,
+            'status' => 'Заказ обрабатывается'
+        ];
+
+        $this->insertIntoTable('orders', $insertOrderData);
     }
 }
 
