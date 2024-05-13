@@ -1,1 +1,1 @@
-website on CSS, HTML, Bootsrap, PHP with a local MySql database
+website on CSS, HTML, Bootsrap, PHP, js, jQuery with a local MySql database
