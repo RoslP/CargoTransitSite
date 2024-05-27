@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Сайт грузоперевозок
 
 ***
@@ -107,4 +106,3 @@ ___Далее ввести команду:___
 ![img_2.png](preview/img_2.png)
 =======
 website on CSS, HTML, Bootsrap, PHP, js, jQuery with a local MySql database
->>>>>>> 53d154fc81d0e6e64a813b6864eba11508246dfe
