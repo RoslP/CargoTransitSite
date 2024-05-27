@@ -104,4 +104,3 @@ ___
 Интуитивно понятное. Выбираете роль при регистрации, регистрируетесь.
 Далее пользуетесь возможностями приложения (Создаете, подтверждаете заказы).
 ![img_2.png](preview/img_2.png)
-website on CSS, HTML, Bootsrap, PHP, js, jQuery with a local MySql database
