@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Май 09 2024 г., 17:41
+-- Время создания: Май 13 2024 г., 16:10
 -- Версия сервера: 8.0.30
 -- Версия PHP: 8.0.22
 
@@ -30,17 +30,43 @@ SET time_zone = "+00:00";
 CREATE TABLE `cargo` (
   `cargo_id` int NOT NULL,
   `cargo_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `weight` decimal(10,0) NOT NULL,
-  `price` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `packaging` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `weight` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Таблица грузов';
 
 --
 -- Дамп данных таблицы `cargo`
 --
 
-INSERT INTO `cargo` (`cargo_id`, `cargo_name`, `weight`, `price`, `packaging`) VALUES
-(1, 'Яблоки', '100', '20000', 'Коробки');
+INSERT INTO `cargo` (`cargo_id`, `cargo_name`, `weight`) VALUES
+(1, 'Яблоки', '100'),
+(2, 'яблоки', '12412'),
+(3, 'яблоки', '12412'),
+(4, 'яблоки', '213'),
+(5, 'яблоки', '213'),
+(6, 'яблоки', '213'),
+(7, 'яблоки', '100'),
+(8, 'яблоки', '100'),
+(9, 'яблоки', '100'),
+(10, 'яблоки', '100'),
+(11, 'яблоки', '100'),
+(12, 'яблоки', '100'),
+(13, 'яблоки', '100'),
+(14, 'яблоки', '100'),
+(15, 'Сапоги', '4444'),
+(16, 'Сапоги', '4444'),
+(17, 'Кросовки', '10000'),
+(18, 'Лекарства', '300'),
+(19, 'Елки', '300'),
+(20, 'Елки', '300'),
+(21, 'Елки', '300'),
+(22, 'Елки', '300'),
+(23, 'зотники', '5000'),
+(24, 'ssadas', '214'),
+(25, 'asf', '435345'),
+(26, 'sdads', '241412'),
+(27, 'Еда', '300'),
+(28, 'Конфеты', '300'),
+(29, 'Столы', '300');
 
 -- --------------------------------------------------------
 
@@ -52,15 +78,34 @@ CREATE TABLE `orders` (
   `order_id` int NOT NULL,
   `id_users` int NOT NULL,
   `cargo_id` int NOT NULL,
-  `station_id` int NOT NULL
+  `station_id` int NOT NULL,
+  `packing` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `price` int NOT NULL,
+  `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Дамп данных таблицы `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `id_users`, `cargo_id`, `station_id`) VALUES
-(1, 5, 1, 1);
+INSERT INTO `orders` (`order_id`, `id_users`, `cargo_id`, `station_id`, `packing`, `price`, `status`) VALUES
+(1, 5, 1, 1, '', 1000, 'status'),
+(8, 57, 12, 1, 'Мешки, Контейнеры, Термоупаковка', 128000, 'Заказ выполнен'),
+(9, 57, 13, 1, 'Мешки, Контейнеры, Термоупаковка', 128000, 'Заказ обрабатывается'),
+(10, 57, 13, 1, 'Мешки, Контейнеры, Термоупаковка', 128000, 'Заказ отменён'),
+(11, 57, 14, 1, 'Мешки, Контейнеры, Термоупаковка', 128000, 'Заказ отменён'),
+(12, 57, 15, 9, 'Контейнеры, Мешки, Стреч-пленка, Паллеты, Коробки', 3264120, 'Заказ отменён'),
+(13, 57, 16, 9, 'Контейнеры, Мешки, Стреч-пленка, Паллеты, Коробки', 3264120, 'Заказ выполнен'),
+(14, 57, 17, 14, 'Контейнеры, Стреч-пленка, Термоупаковка, Мешки', 15820000, 'Заказ отменён'),
+(15, 57, 18, 9, 'Коробки, Стреч-пленка, Термоупаковка, Мешки, Паллеты, Контейнеры', 539000, 'Заказ отменён'),
+(16, 57, 22, 1, 'Паллеты, Мешки, Контейнеры', 59000, 'Заказ обрабатывается'),
+(17, 57, 23, 4, 'Коробки, Стреч-пленка, Контейнеры, Мешки', 3420000, 'Заказ обрабатывается'),
+(18, 57, 24, 1, 'Коробки, Паллеты', 32100, 'Заказ обрабатывается'),
+(19, 57, 25, 1, 'Коробки, Контейнеры, Мешки', 78382100, 'Заказ обрабатывается'),
+(20, 57, 26, 1, 'Коробки, Мешки', 43454160, 'Заказ обрабатывается'),
+(21, 86, 27, 4, 'Коробки, Контейнеры, Термоупаковка, Мешки', 374000, 'Заказ выполнен'),
+(22, 86, 28, 9, 'Коробки, Стреч-пленка, Контейнеры', 200000, 'Заказ обрабатывается'),
+(23, 92, 29, 9, 'Коробки, Контейнеры, Мешки', 74000, 'Заказ выполнен');
 
 -- --------------------------------------------------------
 
@@ -107,7 +152,10 @@ INSERT INTO `stations` (`station_id`, `name`, `city`) VALUES
 (2, 'База', 'Москва'),
 (4, 'Вокзальная', 'Монтаны'),
 (9, 'Большая', 'Хабаровск'),
-(13, 'Приморская', 'хабаровск');
+(13, 'Приморская', 'хабаровск'),
+(14, 'Усть-сумбай', 'Чебоксары'),
+(15, 'Хабаровская', 'Хаборовск'),
+(16, 'Химкинская', 'Химки');
 
 -- --------------------------------------------------------
 
@@ -184,7 +232,17 @@ INSERT INTO `users` (`id_users`, `is_manager`, `first_name`, `second_name`, `pat
 (70, 0, 'фывфыв', 'фвывфы', 'ыфввфы', 'фыввыф', 'вфы', 'фыв', 'вфы', '$2y$10$.B7JJu/p0Q9.rKiZZxVwMeVfR4zj3fVXCXxu9cDDc/Lz11U2gl81m'),
 (72, 0, 'вфы', 'фыфвы', 'фывв', 'вфывыф', 'рпарарапр', 'ыфввфы', 'фыввыф', '$2y$10$qYObXGeXt.SPBXkOtDHKzOvdc.Ul17zbSBloATf8l34kI6mrkgVta'),
 (74, 0, 'ыфв', 'фыввыф', 'выф', 'фыв', 'фыв', 'фыв', 'фвы', '$2y$10$PyP3zbuXVJy6Hvsot99TtO8LfFuBTmDTuTu1HdhNrcdbrMVOADqI.'),
-(76, 0, 'фывфыв', 'фыввфы', 'выфвфы', 'фыв', 'вывфы', 'фывыфв123', 'вфывыф', '$2y$10$HFyuucTC1grrE3gBXNo55Ov7CKcwP1gpYgMUxGp2USWiWCbwebdwy');
+(76, 0, 'фывфыв', 'фыввфы', 'выфвфы', 'фыв', 'вывфы', 'фывыфв123', 'вфывыф', '$2y$10$HFyuucTC1grrE3gBXNo55Ov7CKcwP1gpYgMUxGp2USWiWCbwebdwy'),
+(78, 1, 'Олег', 'Павловский', 'Павлович', 'г. Владивосток', '+79247221229', 'Transit', 'oleg', '$2y$10$G2l58nU4TVRaacN79tYsBunqybnsGsTmvkbtVDR7Sbz1K5vC88mg.'),
+(80, 0, 'asdas', 'dasddsa', 'asdsad', 'saddsa', '65657', 'asdd', 'gggg', '$2y$10$wj9Q7OClhDalc.xYvW6M9O/WjNi50GYwxQG/O4LUUBGPHbY2lGzSu'),
+(82, 1, 'asdasd', 'dsadas', 'adsdsa', 'asd', '21123123', 'asd', 'gggg1', '$2y$10$X8FIiPuIzhzBQ8RHOyrpH.Hvi9Zwi4CLsvBgkU434lc3rZ6WC4S0G'),
+(84, 1, 'asdsad', 'asddas', 'asda', 'asdasd', '879789', 'asdasd', 'asd123', '$2y$10$obqzzgJJZIEFLENx6BpnTOFfrGovusIhD07QAUvLbhgHmJFDUSowC'),
+(86, 0, 'Павел', 'Рослый', 'Михайлович', 'г.Владивосток', '79247381800', 'Грузоперевозки', 'qwe123', '$2y$10$LgJ8nFURgPeOzRW8efTuEu1Pth9TuDoyX78mEPxu4RD5.E1twJVga'),
+(88, 1, 'Илья', 'Всиьков', 'Васильев', 'Москва', '79473771122', 'БигКомпани', 'qqwe', '$2y$10$MTuNGNygULnnYf9x5uU/iODZrs314xIbsRYcf39nhPldRAjzhbDJu'),
+(90, 1, 'Ванёк', 'Петровский', 'Михайлович', 'Птиербург', '9993881232', 'СомКомпани', 'qwee', '$2y$10$1JeVv/WVPuYqHOcdJ55s/uQWPSM73O50nVXESafGuyxwORqO9vXo6'),
+(92, 0, 'Петр', 'Петровский', 'Петрович', 'г.Хабаровк', '79824321212', 'Петровская', 'petr123', '$2y$10$4oqbR0QFRXYriuVb1/I9ruozNiB.GvqdLgZhTGBKzAEl29CRleNu.'),
+(94, 0, 'Иван', 'Алексеевич', 'Киров', 'Г.Москва', '79210001313', 'ИванКомпани', 'ivan123', '$2y$10$Wyg8laHhfSwJ5wySvY2fIevYYPoSCYbNGCX9bP.mAV8us5cAycsIy'),
+(96, 1, 'Иван', 'Петровский', 'Константинович', 'г.Уссурийск', '79248880909', 'КомпанияСолид', 'ivan333', '$2y$10$fnbp8GYIlwFlGNK/XgtCPeym20Wqt6nHshC6lcSON2uoXOoB/b1im');
 
 --
 -- Индексы сохранённых таблиц
@@ -233,13 +291,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `cargo`
 --
 ALTER TABLE `cargo`
-  MODIFY `cargo_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cargo_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT для таблицы `packaging`
@@ -251,13 +309,13 @@ ALTER TABLE `packaging`
 -- AUTO_INCREMENT для таблицы `stations`
 --
 ALTER TABLE `stations`
-  MODIFY `station_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `station_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id_users` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

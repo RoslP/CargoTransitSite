@@ -9,15 +9,8 @@ class Database
         $this->pdo = Connect::getConnection();
     }
 
-    public function tt($tableName)
-    {
-        echo '<pre>';
-        print_r($tableName);
-        echo '</pre>';
-    }
-
     //Проверка выполнения запроса к бд    $this->dbErrorInfo($query);
-    public function dbErrorInfo($query)
+    public function dbErrorInfo($query): void
     {
         $errInfo = $query->errorInfo();
         if ($errInfo[0] != PDO::ERR_NONE) {
@@ -26,21 +19,45 @@ class Database
         }
     }
 
-    public function selectFrom($tableName): void
+    public function OrdersToCurrentUser()
+    {
+        $id = $_SESSION['id_users'];
+        $sql = "SELECT orders.order_id, cargo.cargo_name AS cargo_name, cargo.weight AS cargo_weight,
+       orders.packing AS packing, orders.price AS total_price, stations.name AS station_name, stations.city AS station_city, orders.status AS status FROM orders
+           INNER JOIN users ON orders.id_users = users.id_users INNER JOIN cargo ON orders.cargo_id = cargo.cargo_id INNER JOIN stations ON orders.station_id = stations.station_id
+           WHERE orders.id_users = $id ORDER BY orders.order_id DESC";
+        $query = $this->pdo->query($sql);
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        $json = json_encode($data);
+        $file = "../../assets/json/ordersToCurrentUser.json";
+        file_put_contents($file, $json);
+
+    }
+
+    public function selectFrom($tableName, $currentUser = 0,$params=''): void
     {
         $allowedTables = ['cargo', 'orders', 'stations', 'users', 'packaging'];
         if (!in_array($tableName, $allowedTables)) {
             die('неверное имя таблицы');
         }
-        // Запрос к базе данных
-        $sql = "SELECT * FROM $tableName";
-        $result = $this->pdo->query($sql);
-        $users = $result->fetchAll(PDO::FETCH_ASSOC);
-        // Преобразование результата в формат JSON
-        $jsonData = json_encode($users);
-// Запись данных в файл data.json
-        $file = "../../assets/json/$tableName.json";
-        file_put_contents($file, $jsonData);
+
+        if ($currentUser != 0 && $params!=='') {
+            $parseToInt = intval($currentUser);
+            $sql = "SELECT * FROM $tableName WHERE $params = $parseToInt";
+            $query = $this->pdo->query($sql);
+            $data = $query->fetchAll(PDO::FETCH_ASSOC);
+            $jsonData = json_encode($data);
+            $file = "../../assets/json/$tableName.json";
+            file_put_contents($file, $jsonData);
+        } else {
+            $sql = "SELECT * FROM $tableName";
+            $query = $this->pdo->query($sql);
+            $data = $query->fetchAll(PDO::FETCH_ASSOC);
+            // Преобразование результата в формат JSON
+            $jsonData = json_encode($data);
+            $file = "../../assets/json/$tableName.json";
+            file_put_contents($file, $jsonData);
+        }
     }
 
     public function selectPassword($tableName, $login)
@@ -90,9 +107,13 @@ class Database
             }
             //возвращаю строку запроса в виде ассоциативногомассива и присваиваю значения для сессии
             $result = $query->fetch(PDO::FETCH_ASSOC);
-            $_SESSION['id_users'] = $result['id_users'];
-            $_SESSION['login'] = $result['login'];
-            $_SESSION['is_manager'] = $result['is_manager'];
+            if($result)
+            {
+                $_SESSION['id_users'] = $result['id_users'];
+                $_SESSION['login'] = $result['login'];
+                $_SESSION['is_manager'] = $result['is_manager'];
+                $_SESSION['name']=$result['first_name'];
+            }
             return $result;
         } //Если все параметры массива пустые
         else {
@@ -102,7 +123,7 @@ class Database
 
     public function selectOne($tableName, $col, $id)
     {
-        $allowedTables = ['cargo', 'stations', 'Users'];
+        $allowedTables = ['cargo', 'stations', 'users'];
         if (!in_array($tableName, $allowedTables)) {
             die("Неверное имя таблицы");
         } else {
@@ -114,7 +135,7 @@ class Database
         }
     }
 
-    public function insertIntoTable($tableName, $data)
+    public function insertIntoTable($tableName, $data): int
     {
         $i = 0;
         $coll = '';
@@ -148,80 +169,21 @@ class Database
         return $this->pdo->lastInsertId();
     }
 
-    public function updateTable($tableName, $data, $id)
-    {
-        $i = 0;
-        $str = '';
-        foreach ($data as $key => $value) {
-            if ($i === 0) {
-                $str = $str . "$key = '$value'";
-            } else {
-                $str = $str . ", $key = '$value'";
-            }
-            $i++;
-        }
-        //UPDATE `Users` SET `patronymic` = 'Sanrinosd', `address` = 'New Yorkf', `company` = 'Googles' WHERE `Users`.`id_users` = 9;
-        $sql = "UPDATE $tableName SET $str WHERE id_users = $id";
-//        $this->tt($sql);
-//        exit();
-        $query = $this->pdo->prepare($sql);
-        //Для выполнения подготовленного запроса передаем параметры в виде ассоциативного массива в строку выполнения
-        $query->execute($data);
-        $this->dbErrorInfo($query);
-    }
 
-    public function deleteFromTable($tableName, $id)
+    public function GetAllOrders(): void
     {
 
-        $sql = "DELETE FROM $tableName WHERE id_users = $id";
-        $query = $this->pdo->prepare($sql);
-        $query->execute();
-        $this->dbErrorInfo($query);
-    }
-
-    public function GetAllFromOrdersAndPutUsersStationCargosAndOrdersInJson($tableName)
-    {
-        $sql = "SELECT * FROM $tableName";
+        $sql = "SELECT orders.order_id,users.first_name AS user_name, cargo.cargo_name AS cargo_name, cargo.weight AS cargo_weight,
+       orders.packing AS packing, orders.price AS total_price, stations.name AS station_name, stations.city AS station_city, orders.status AS status FROM orders
+           INNER JOIN users ON orders.id_users = users.id_users INNER JOIN cargo ON orders.cargo_id = cargo.cargo_id INNER JOIN stations ON orders.station_id = stations.station_id
+ORDER BY orders.order_id ASC";
         $query = $this->pdo->prepare($sql);
         $query->execute();
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
-        $Orders = $data[0];
-        $jsonData = json_encode($Orders);
+        $jsonData = json_encode($data);
         $file = "../../assets/json/order.json";
         file_put_contents($file, $jsonData);
-        $tables = [
-            'users', 'cargo', 'stations'
-        ];
-        $i = 0;
-        foreach ($Orders as $key => $value) {
-            if ($i >= 3) {
-                continue;
-            } else {
-                if ($key === 'order_id') {
-                    $jsonData = json_encode($Orders['order_id']);
-                    $file = '../../assets/json/order.json';
-                    file_put_contents($file, $jsonData);
-                    continue;
-                }
-                $sql = "SELECT * FROM $tables[$i] WHERE $key = '$value'";
-                $query = $this->pdo->prepare($sql);
-                $query->execute();
-                $data = $query->fetchAll(PDO::FETCH_ASSOC);
-                $jsonData = json_encode($data);
 
-                if ($key === 'id_users') {
-                    $file = '../../assets/json/requestUsers.json';
-                    file_put_contents($file, $jsonData);
-                } elseif ($key === 'cargo_id') {
-                    $file = '../../assets/json/requestCargos.json';
-                    file_put_contents($file, $jsonData);
-                } elseif ($key === 'station_id') {
-                    $file = '../../assets/json/requestStations.json';
-                    file_put_contents($file, $jsonData);
-                }
-                $i++;
-            }
-        }
     }
 
     public function CreateOrder($data): void
@@ -260,8 +222,45 @@ class Database
             'price' => $newData['price'] ?? null,
             'status' => 'Заказ обрабатывается'
         ];
+        $this->insertIntoTable('orders',$insertOrderData);
+    }
 
-        $this->insertIntoTable('orders', $insertOrderData);
+    public function CancelOrder($data): void
+    {
+        $keys = '';
+        $isFirst = true;
+        foreach ($data as $key => $value) {
+            if ($isFirst) {
+                $keys .= $key;
+                $isFirst = false;
+            } else {
+                $keys .= ', ' . $key;
+            }
+
+        }
+
+        $sql = "UPDATE orders SET status = 'Заказ отменён' WHERE order_id IN ($keys)";
+        $query = $this->pdo->prepare($sql);
+        $query->execute();
+    }
+
+    public function CompleteOrder($data): void
+    {
+        $keys = '';
+        $isFirst = true;
+        foreach ($data as $key => $value) {
+            if ($isFirst) {
+                $keys .= $key;
+                $isFirst = false;
+            } else {
+                $keys .= ', ' . $key;
+            }
+
+        }
+
+        $sql = "UPDATE orders SET status = 'Заказ выполнен' WHERE order_id IN ($keys)";
+        $query = $this->pdo->prepare($sql);
+        $query->execute();
     }
 }
 

@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apache-php
+    ports:
+      - "1999:80"
+    volumes:        #Далее идет монтирование файлов в дирректорию сервера. Это необходимо, чтобы изменения сразу же подхватывались контейнерами
+      - ./index.php:/var/www/html/index.php #Это позволяет обмениваться данными между контейнером и хостом в режиме реального времени
+      - ./src:/var/www/html/src
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      PHP_IDE_CONFIG: serverName=Docker
+    networks:
+      - siteCargo-net
+    depends_on:
+      - db
+
+  db:
+      image: mysql:8.0
+      container_name: mysql-db
+      restart: always
+      volumes:
+        - db-data:/var/lib/mysql
+      environment:
+        MYSQL_DATABASE: cargo_transit_db
+        MYSQL_ROOT_PASSWORD: root
+      ports:
+        - "3306:3306"
+      networks:
+        - siteCargo-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+    ports:
+      - "1453:80"
+    depends_on:
+      - db
+    networks:
+      - siteCargo-net
+
+networks:
+  siteCargo-net:
+    driver: bridge
+
+volumes:
+  db-data:

@@ -1,9 +1,30 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    //Далее кнопка отмены заказа
+    let cancelButton = document.getElementById('cancel-order');
+    //Далее конока выполнения заказа
+    let completeOrder = document.getElementById('complete-order');
+    let cancelArray = {
+        action: 'cancel_order',
+        playload: {}
+    };
+    let completeArray = {
+        action: 'complete-order',
+        playload: {}
+    };
+    //Далее ссылки в сайдаре
+    let ToggleStations = document.getElementById('ToggleStations');
+    let ToggleOrders = document.getElementById('ToggleOrders');
+    let ToggleUsers = document.getElementById('ToggleUsers');
+    //Далее блоки загруженые на форму
+    let TableManagerBlock = document.getElementById('IdTableManager');
+    let IdFormStationsManager = document.getElementById('IdFormStationsManager');
+
     //обработка комнаты менеджера
     if (window.location.pathname === '/src/Lk/Admin/ManagerRoom.php') {
         $(document).ready(function () {
+
             $.ajax({
-                url: '/src/assets/json/requestStations.json',
+                url: '/src/assets/json/order.json',
                 dataType: 'json',
                 success: function (data) {
                     // Очищаем существующее содержимое таблицы
@@ -19,10 +40,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         let newRow = $('<tr>').addClass('CellsContentOfTableCargos col-12');
 
                         // Создаем ячейки и добавляем данные
-                        $('<td>').addClass('tableElement').attr('id', 'LId').text(item.station_id).appendTo(newRow);
-                        $('<td>').addClass('tableElement').attr('id', 'LStation').text(item.name).appendTo(newRow);
-                        $('<td>').addClass('tableElement').attr('id', 'LCity').text(item.city).appendTo(newRow);
-                        $('<td>').addClass('tableElement').html('Заказ обрабатывается').appendTo(newRow);
+                        $('<td>').addClass('tableElement').attr('id', item.order_id).text(item.order_id).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.user_name).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.cargo_name).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.cargo_weight).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.packing).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.total_price).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.station_name).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.station_city).appendTo(newRow);
+                        $('<td>').addClass('tableElement').text(item.status).appendTo(newRow);
                         $('<td>').addClass('tableElement').html('<input type="checkbox">').appendTo(newRow);
 
                         // Добавляем строку в новый tbody
@@ -34,13 +60,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             });
         });
-        //Далее ссылки в сайдаре
-        let ToggleStations = document.getElementById('ToggleStations');
-        let ToggleOrders = document.getElementById('ToggleOrders');
-        let ToggleUsers = document.getElementById('ToggleUsers');
-        //Далее блоки загруженые на форму
-        let TableManagerBlock = document.getElementById('IdTableManager');
-        let IdFormStationsManager = document.getElementById('IdFormStationsManager');
 
         //Далее логика показа контента
         ToggleStations.addEventListener('click', function () {
@@ -63,20 +82,53 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();//предотвращает переход по ссылке
         })
 
-        //отмена заказа
-        document.addEventListener('DOMContentLoaded', function () {
-            const cancelButton = document.querySelector('.btn-danger'); // Находим кнопку "Отменить заказ"
+        //Далее отмена заказа
+        cancelButton.addEventListener('click', function () {
+            let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked'); // Находим все выбранные чекбоксы
 
-            cancelButton.addEventListener('click', function () {
-                const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked'); // Находим все выбранные чекбоксы
+            checkboxes.forEach(function (checkbox) {
+                let parentRow = checkbox.closest('tr'); // Находим ближайший родительский элемент <tr>
+                let orderId = parentRow.querySelector('[id]').getAttribute('id'); // Получаем значение из элемента с атрибутом "id"
+                cancelArray.playload[orderId] = orderId;
 
-                checkboxes.forEach(function (checkbox) {
-                    const parentRow = checkbox.closest('tr'); // Находим ближайший родительский элемент <tr>
-                    const orderId = parentRow.querySelector('#LId').textContent; // Получаем значение из элемента с id "LId"
-                    console.log('Заказ отменен для ID:', orderId);
-                });
             });
+            $.ajax(
+                {
+                    url: '/src/App/Call/Call.php',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(cancelArray),
+
+                    success: function () {
+                        location.reload();
+                    }
+                }
+            );
         });
+        //Далее выполнение заказа
+        completeOrder.addEventListener('click', function () {
+            let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked'); // Находим все выбранные чекбоксы
+
+            checkboxes.forEach(function (checkbox) {
+                let parentRow = checkbox.closest('tr'); // Находим ближайший родительский элемент <tr>
+                let orderId = parentRow.querySelector('[id]').getAttribute('id'); // Получаем значение из элемента с атрибутом "id"
+                completeArray.playload[orderId] = orderId;
+
+            });
+            $.ajax(
+                {
+                    url: '/src/App/Call/Call.php',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(completeArray),
+
+                    success: function () {
+                        location.reload();
+                    }
+                }
+            );
+        });
+
     }
 
 })

@@ -7,13 +7,13 @@
         <div class="row">
             <!--сетка в bootstrap делится на 12 колонок, col-4 означает, что данный блок будет занимать 1/3 всей сетки блока row-->
             <div class="col-4">
-                <h1><a href="/Index.php">TransitCompany</a></h1>
+                <h1><a href="/index.php">TransitCompany</a></h1>
             </div>
             <nav class="col-8">
                 <!--                использование иконок в i из font awesome-->
                 <ul>
 
-                    <li><a href="/Index.php"><i class="fa-solid fa-house"></i>Главная</a></li>
+                    <li><a href="/index.php"><i class="fa-solid fa-house"></i>Главная</a></li>
                     <?php if (isset($_SESSION['is_manager']) && $_SESSION['is_manager'] === '1') : ?>
                         <li><a href="/src/Lk/Admin/ManagerRoom.php"><i class="fa-solid fa-truck"></i>Управление заказами</a>
                         </li>
@@ -26,7 +26,7 @@
                         <!--                        ветвление первое условие входа-->
                         <?php if (isset($_SESSION['id_users'])) : ?>
                             <i class="fa-solid fa-circle-user"></i>
-                            <?php echo $_SESSION['login']; ?>
+                            <?php echo $_SESSION['name']; ?>
                             <ul id="LK">
                                 <li><a href="/src/Lk/Users/UserRoom.php">Личный кабинет</a></li>
                                 <li><a href='/src/Pages/Sd.php'>Выход</a></li>

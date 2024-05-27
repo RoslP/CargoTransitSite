@@ -21,6 +21,8 @@ require '../../App/Call/Call.php'
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/src/assets/js/UserProcessing.js" ></script>
     <!--    подключение стрилей-->
     <link rel="stylesheet" href="../../assets/css/admh.css">
     <!--    подключение шрифтов от google fonts-->
@@ -33,36 +35,33 @@ require '../../App/Call/Call.php'
 
 <!--блок Main-->
 <div class="container">
-    <?php echo 'заказы текущего пользователя'?>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
-        </tbody>
-    </table>
+
+    <div class="UserLlStructure row">
+        <div class="UserData col-3">
+
+        </div>
+
+        <div class="col-9">
+            <h3 class="userTableHeader">Заказы пользователя</h3>
+            <table class="UserCargosTable">
+                <thead class="ManagerCargosTable">
+                <tr>
+                    <th class="HeadTableElement col-1">Номер</th>
+                    <th class="HeadTableElement col-1">Груз</th>
+                    <th class="HeadTableElement col-1">Вес Груза</th>
+                    <th class="HeadTableElement col-1">Упаковка</th>
+                    <th class="HeadTableElement col-1">Цена</th>
+                    <th class="HeadTableElement col-1">Станция</th>
+                    <th class="HeadTableElement col-1">Город</th>
+                    <th class="HeadTableElement col-2">Статус</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <!--блок Main конец-->
 <!--footer начало-->

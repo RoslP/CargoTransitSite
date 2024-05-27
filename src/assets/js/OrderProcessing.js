@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
+
 //Вывод списка станций для пользователя
     if (window.location.pathname === '/src/Lk/Cargos/Cargos.php') {
         fetch('/src/assets/json/stations.json')
@@ -238,7 +238,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     url: '/src/App/Call/Call.php',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify(data)
+                    data: JSON.stringify(data),
+                    success: function () {
+                        location.reload();
+                    }
                 }
             )
         });

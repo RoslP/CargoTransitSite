@@ -156,7 +156,8 @@ footer {
 
 /*Начало стилей для таблицы менеджера*/
 
-.ManagerCargosTable {
+.ManagerCargosTable,.UserCargosTable {
+    margin-top: 20px;
     text-align: center;
     border: 2px solid #000000;
     background: linear-gradient(to right, #aaa08d, #ccc3b0, #d1c17b, #807d8c, #546b82); /* Задайте фон как градиент */
@@ -188,7 +189,7 @@ footer {
     border: 1px solid #000000;
 }
 
-.tableElement {
+.tableElement,.UserTableElement {
     border: 1px solid #000000;
     font-size: 1.2rem;
 }
@@ -197,14 +198,19 @@ footer {
     padding: 20px;
 }
 
-.TableStructure {
+.TableStructure,.UserLlStructure,.createCargo {
     background-color: rgba(197, 184, 174, 0.44);
     border-radius: 12px;
-    margin: 20px 0px 20px 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
 }
 
 .RowManagerTableDo {
     padding-bottom: 20px;
+    justify-content: center;
 }
 
 /*конец стилей для таблицы менеджера*/
@@ -213,4 +219,21 @@ footer {
 .divCurrentPrice {
     display: flex;
     justify-content: center;
+}
+
+/*Далее стили для сайдбара личного кабинета и сайдбара менеджера*/
+.userInfo,.ManagerSidebar{
+    background: rgba(171, 169, 145, 0.44);
+    margin: 20px 0 20px 0;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #000000;
+}
+/*Заголовок таблицы для менеджера*/
+.ManagerTableHeader,.userTableHeader{
+text-align: center;
+    font-style: italic;
+    font-weight: bold;
 }

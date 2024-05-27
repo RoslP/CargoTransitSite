@@ -83,7 +83,7 @@ require '../App/Call/Call.php';
         </div>
         <div class="w-100"></div>
         <div class="col-12  col-md-4">
-            <label for="validationDefaultUsername" class="form-label">Пароль</label>
+            <label for="validationDefaultUsername" class="form-label">Повторите пароль</label>
             <div class="input-group">
                 <span class="input-group-text" id="inputGroupPrepend2">@</span>
                 <input name="RePassword" type="password" class="form-control" id="validationPasswordInput2"

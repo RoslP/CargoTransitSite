@@ -27,7 +27,18 @@ if (basename($_SERVER['PHP_SELF']) === 'Cargos.php') {
 }
 //создание заказа
 if (isset($data['action'])) {
-    (new DataProcessing())->CreateOrder($data);
+    if ($data['action'] === 'cancel_order') {
+        (new DataProcessing())->CancelOrder($data['playload']);
+    }
+    if ($data['action'] === 'InsertIntoOrders') {
+        (new DataProcessing())->CreateOrder($data);
+    }
+    if ($data['action'] === 'complete-order') {
+        (new DataProcessing())->CompleteOrder($data['playload']);
+    }
+}
+if (basename($_SERVER['PHP_SELF']) === 'UserRoom.php') {
+    (new DataProcessing())->getCurrentUser();
 }
 switch ($action) {
     case 'registration':

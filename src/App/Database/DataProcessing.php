@@ -1,9 +1,9 @@
 <?php
 require 'Database.php';
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo 'POST';
-} else
-    echo 'GET';
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//    echo 'POST';
+//} else
+//    echo 'GET';
 
 class DataProcessing
 {
@@ -54,7 +54,7 @@ class DataProcessing
                 self::$arrOfPostsend['company'] = $company;
                 self::$arrOfPostsend['address'] = $address;
                 self::$arrOfPostsend['phone'] = $phone;
-            } elseif (!empty($sql = (new Database())->selectOne('Users', 'login', $login)) || !empty($sql2 = (new Database())->selectOne('Users', 'phone_number', $phone))) {
+            } elseif (!empty($sql = (new Database())->selectOne('users', 'login', $login)) || !empty($sql2 = (new Database())->selectOne('users', 'phone_number', $phone))) {
 
                 if (!empty($sql)) {
                     $row = $sql;
@@ -85,18 +85,19 @@ class DataProcessing
                 foreach (self::$arrOfPostsend as $key => &$value) {
                     $value = '';
                     //берем id пользователся в запросе. Запрос все равно будет выполнен. Мы используем метод lastInsertId() в метода insertIntoTable()
-                    $id = (new Database())->insertIntoTable('Users', $this->post_data);
+                    $id = (new Database())->insertIntoTable('users', $this->post_data);
                     //далее выбираем строку по ранее полученному id и присваеваем ее значение в $user
-                    $user = (new Database())->selectOne('Users', 'id_users', $id);
+                    $user = (new Database())->selectOne('users', 'id_users', $id);
                     //Использую массив данных из сессии и назначаю ему ключ-значение id - текущий записанный пользователь
                     $_SESSION['id_users'] = $user['id_users'];
                     $_SESSION['login'] = $user['login'];
                     $_SESSION['is_manager'] = $user['is_manager'];
+                    $_SESSION['name']=$user['first_name'];
                     if ($_SESSION['is_manager']) {
-                        header('location: ' . '/Lk/Admin/ManagerRoom.php');
+                        header('location: ' . '/src/Lk/Admin/ManagerRoom.php');
                     } //перенаправляет пользователя на главную страницу после регистрации
                     else {
-                        header('location: ' . '/Index.php');
+                        header('location: ' . '/index.php');
                     }
                 }
             }
@@ -110,7 +111,7 @@ class DataProcessing
             $dbpasswod = '';
             foreach ($_POST as $key => $value) {
                 if ($key === 'password') {
-                    $dbpasswod .= (new Database())->selectPassword('Users', trim($_POST['login']));
+                    $dbpasswod .= (new Database())->selectPassword('users', trim($_POST['login']));
                     if (password_verify($value, $dbpasswod)) {
                         $all_post_data[$key] = $dbpasswod;
                     }
@@ -122,11 +123,10 @@ class DataProcessing
             $password = $_POST['password'];
             if ($login === '' || $password === '') {
                 self::$ErrIfStingEmpty = 'Не все поля заполнены';
-            } elseif (!empty((new Database())->selectFromWhereAnd('Users', $all_post_data))) {
+            } elseif (!empty((new Database())->selectFromWhereAnd('users', $all_post_data))) {
                 if ($_SESSION['is_manager'] === '0') {
-                    header('location:' . '/Index.php');
-                }
-                else
+                    header('location:' . '/index.php');
+                } else
                     header('location:' . '/src/Lk/Admin/ManagerRoom.php');
             } else {
                 self::$ErrIfStingEmpty = 'Неверное имя пользователи или пароль';
@@ -141,7 +141,7 @@ class DataProcessing
             foreach ($_POST as $key => $value) {
                 $postData[$key] = trim($value);
             }
-            (new Database())->insertIntoTable('stations',$postData);
+            (new Database())->insertIntoTable('stations', $postData);
             header("Location: ManagerRoom.php");
             exit;
         }
@@ -157,29 +157,48 @@ class DataProcessing
     {
         $this->DataPostMethodAuth();
     }
+
     //хз что за функция записывает всех пользователей
     function TakeOllDataInUsers(): void
     {
         (new Database())->selectFrom('users');
     }
+
     //Вывод загрузка всех заказов для менеджера с дальнейшей записью в order и request.json файлы
     function GetAllOrders(): void
     {
-       (new Database())->GetAllFromOrdersAndPutUsersStationCargosAndOrdersInJson('orders');
+        (new Database())->GetAllOrders();
     }
+
     //Добавление станции менеджером
     function AddStation(): void
     {
         $this->AddNewStation();
     }
+
     //загрузка списка станций пользователю
     function loadSelects(): void
     {
         (new Database())->selectFrom('stations');
         (new Database())->selectFrom('packaging');
     }
-    function CreateOrder($data):void
+
+    function CreateOrder($data): void
     {
         (new Database())->CreateOrder($data['playload']);
+    }
+
+    function CancelOrder($data): void
+    {
+        (new Database())->CancelOrder($data);
+    }
+    function CompleteOrder($data): void
+    {
+        (new Database())->CompleteOrder($data);
+    }
+    function getCurrentUser(): void
+    {
+        (new Database())->selectFrom('users',$_SESSION['id_users'],'id_users');
+        (new Database())->OrdersToCurrentUser();
     }
 }

@@ -41,7 +41,7 @@ require '../../App/Call/Call.php';
 <div class="container">
     <h2>Оформить заказ на грузоперевозку</h2>
     <div class="row">
-        <div class="col-4">
+        <div class="createCargo col-4">
             <div>
                 <label>Введите название груза</label>
                 <input id="cargoName" type="text">

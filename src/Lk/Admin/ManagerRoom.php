@@ -33,9 +33,9 @@ require_once '../../App/Call/Call.php';
 <body>
 <?php require 'AdminHeader.php' ?>
 <!--блок Main-->
-<div class="container">
+<div class="TableStructure container">
     <div class="row">
-        <div class="sidebar col-2">
+        <div class="ManagerSidebar sidebar col-2">
             <ul>
                 <li>
                     <a href="#" id="ToggleOrders">Статусы заказов</a>
@@ -48,49 +48,44 @@ require_once '../../App/Call/Call.php';
                 </li>
             </ul>
         </div>
-<!--        Далее идет таблица всех заказов менеджера-->
-        <div id="IdTableManager" class="TableStructure col-10" style="display: block">
-            <div class="table-container col-12">
+        <!--        Далее идет таблица всех заказов менеджера-->
+        <div id="IdTableManager" class="col-10" style="display: block">
+            <div class="table-container col-10">
+                <h3 class="ManagerTableHeader">Статусы заказов пользователя</h3>
                 <table class="ManagerCargosTable">
                     <thead>
                     <tr class="HeadOfTableCargos col-12">
                         <th class="HeadTableElement col-1">Номер</th>
                         <th class="HeadTableElement col-1">Клиент</th>
-                        <th class="HeadTableElement col-1">Стоимость</th>
+                        <th class="HeadTableElement col-1">Груз</th>
+                        <th class="HeadTableElement col-1">Вес Груза</th>
+                        <th class="HeadTableElement col-1">Упаковка</th>
+                        <th class="HeadTableElement col-1">Цена</th>
                         <th class="HeadTableElement col-1">Станция</th>
                         <th class="HeadTableElement col-1">Город</th>
-                        <th class="HeadTableElement col-1">Груз</th>
-                        <th class="HeadTableElement col-1">Упаковка</th>
-                        <th class="HeadTableElement col-1">Вес</th>
-                        <th class="HeadTableElement col-2">Cтатус</th>
+                        <th class="HeadTableElement col-2">Статус</th>
+                        <th class="HeadTableElement col-2">Выбрать</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr class="CellsContentOfTableCargos col-12">
-                        <td class="tableElement" id="LId">1</td>
-                        <td class="tableElement" id="LStation"></td>
-                        <td class="tableElement" id="LCity"></td>
-                        <td class="tableElement" id="LStatus"></td>
-                        <td class="tableElement" ><input type="checkbox"></td>
-                    </tr>
-                    </tbody>
                 </table>
             </div>
             <div class=" col-12">
                 <div class="row RowManagerTableDo">
                     <div class="col-3">
-                        <button class="btn btn-success">Заказ выполнен</button>
+                        <button id="complete-order" type="button" class="btn btn-success">Заказ выполнен</button>
                     </div>
                     <div class="col-3">
-                        <button class="btn btn-danger" style="margin-left: 20px">Отменить заказ</button>
+                        <button id="cancel-order" type="button" class="btn btn-danger" style="margin-left: 20px">
+                            Отменить заказ
+                        </button>
                     </div>
-                    <div class="col-6">
-                        <input class="form-control" type="text" value="Введите причину отмены">
-                    </div>
+<!--                    <div class="col-6">-->
+<!--                        <input class="form-control" type="text" value="Введите причину отмены">-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
-<!--        Далее идет форма станций менеджера-->
+        <!--        Далее идет форма станций менеджера-->
         <div id="IdFormStationsManager" class="TableStructure col-10" style="display: none">
             <div class="table-container col-12">
                 <form name="AddStationForm" class="AddStationForm" method="post" action="ManagerRoom.php">
@@ -98,7 +93,7 @@ require_once '../../App/Call/Call.php';
                     <input name="name" placeholder="Введите название станции" required>
                     <label>Город станции</label>
                     <input name="city" placeholder="Введите город станции" required>
-                    <button  type="submit">Добавить станцию</button>
+                    <button type="submit">Добавить станцию</button>
                 </form>
             </div>
         </div>
